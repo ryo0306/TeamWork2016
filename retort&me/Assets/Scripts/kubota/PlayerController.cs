@@ -1,55 +1,65 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class PlayerController : MonoBehaviour {
+public class PlayerController : MonoBehaviour
+{
 
 	/// <summary>
 	/// The touch start position.
 	/// 画面上をタップ（左クリック）したときの位置を取得させる変数
-	/// _touchStartPos
+	/// touchStartPos
 	/// 指を画面上から離した時の位置を取得させる変数
-	/// _touchEndPos
+	/// touchEndPos
 	/// </summary>
-	private Vector3 _touchStartPos;
-	private Vector3 _touchEndPos;
+	private Vector3 touchStartPos;
+	private Vector3 touchEndPos;
 
 	[SerializeField]
 	/// <summary>
 	/// The direction test.
 	/// デザイナーさんたちでも触れるようにSerializeFieldで切っている。
 	/// のちに数値が決まり次第それを代入させて使用する。
-	/// 現在は仮として30を代入している。
 	/// </summary>
-	private float _directionTest = 30f;
+	private float ranningDirection = 150f;
+	[SerializeField]
+	private float walkingDirection = 100f;
 
-	string _direction;
+	string direction;
+	/// <summary>
+	/// The test flag.
+	/// 傘を開いている状態と閉じている状態があるため
+	/// それを切り替えるための仮フラグを用意。
+	/// </summary>
+	[SerializeField]
+	private bool testFlag = false;
 
 	/// <summary>
 	/// Flick this instance.
 	/// 画面上をタップ（左クリック）したときに
-	/// まず_touchStartPosに現在のタップ地点を取得させて
-	/// 指を離した時に_touchEndPosにその位置を取得させる関数
+	/// まずtouchStartPosに現在のタップ地点を取得させて
+	/// 指を離した時にtouchEndPosにその位置を取得させる関数
 	/// </summary>
-	void flick(){
-		if (Input.GetKeyDown(KeyCode.Mouse0)){
-			_touchStartPos = new Vector3(Input.mousePosition.x,
+	void PuniCon ()
+	{
+		if (Input.GetKeyDown (KeyCode.Mouse0)) {
+			touchStartPos = new Vector3 (Input.mousePosition.x,
 				Input.mousePosition.y,
 				Input.mousePosition.z);
 		}
 
-		if (Input.GetKey(KeyCode.Mouse0)){
-			_touchEndPos = new Vector3(Input.mousePosition.x,
+		if (Input.GetKey (KeyCode.Mouse0)) {
+			touchEndPos = new Vector3 (Input.mousePosition.x,
 				Input.mousePosition.y,
 				Input.mousePosition.z);
-			getDirection();
+			GetDirection (testFlag);
 		}
 
 		if (Input.GetKeyUp (KeyCode.Mouse0)) {
 
-			_touchStartPos = Vector3.zero;
+			touchStartPos = Vector3.zero;
 
-			_touchEndPos = Vector3.zero;
-			_direction = "null";
+			touchEndPos = Vector3.zero;
+			direction = "null";
 		}
 	}
 
@@ -63,42 +73,45 @@ public class PlayerController : MonoBehaviour {
 	/// 2．移動量の判定（マイナスかプラスか）
 	/// →上下or左右のどちらかを判定
 	/// 3．どれにも当てはまらない場合はタッチとみなして処理する。
+	/// 
+	/// なお、上部のtestFlagは外部から引っ張って管理させる形が好ましい。
+	/// 用意したGetDirectionの引数に突っ込めば動かせる
+	/// 
 	/// </summary>
-	void getDirection()
+	void GetDirection (bool _umbrellaFlag)
 	{ 
-		float _directionX = _touchEndPos.x - _touchStartPos.x;
-		float _directionY = _touchEndPos.y - _touchStartPos.y;
+		float directionX = touchEndPos.x - touchStartPos.x;
+		float directionY = touchEndPos.y - touchStartPos.y;
 
-		if (Mathf.Abs (_directionY) < Mathf.Abs (_directionX)) 
-		{
-			if (_directionTest < _directionX) 
-			{
-				_direction = "right";
+		Debug.Log (directionY);
+		Debug.Log (directionX);
+
+		if (Mathf.Abs (directionY) < Mathf.Abs (directionX)) {
+			if (walkingDirection < directionX) {
+				direction = "walkRight";
+			} else if (-walkingDirection > directionX) {
+				direction = "walkLeft";
 			} 
-			else if (-_directionTest > _directionX) 
-			{
-				_direction = "left";
-			}
-		} 
-		else if (Mathf.Abs (_directionX) < Mathf.Abs (_directionY)) 
-		{
-			if (_directionTest < _directionY)
-			{
-				_direction = "jump";
+			if (ranningDirection < directionX) {
+				if(_umbrellaFlag == false)
+					direction = "ranRight";
 			} 
-			else if (-_directionTest > _directionY) 
-			{
-				_direction = "down";
+			else if (-ranningDirection > directionX) {
+				if(_umbrellaFlag == false)
+					direction = "ranLeft";
 			}
-		} 
-		else if (Mathf.Abs (_directionX) == Mathf.Abs (_directionY))
-		{
-			_direction = "touch";
-		} 
-		else 
-		{
-			_direction = "null";
+		} else if (Mathf.Abs (directionX) < Mathf.Abs (directionY)) {
+			if (ranningDirection < directionY) {
+				direction = "jump";
+			} else if (-ranningDirection > directionY) {
+				direction = "down";
+			}
+		} else if (Mathf.Abs (directionX) == Mathf.Abs (directionY)) {
+			direction = "touch";
+		} else {
+			direction = "null";
 		}
+
 	}
 
 	/// <summary>
@@ -109,11 +122,12 @@ public class PlayerController : MonoBehaviour {
 	/// 何かの処理をさせるときに各ケース文の中に代入してやれば
 	/// 動くはず。
 	/// </summary>
-	void Update()
+	void Update ()
 	{
-		flick ();
+		PuniCon ();
 
-		switch (_direction){
+		switch (direction) {
+
 		case "jump":
 			Debug.Log ("jump");
 			break;
@@ -122,12 +136,20 @@ public class PlayerController : MonoBehaviour {
 			Debug.Log ("down");
 			break;
 
-		case "right":
-			Debug.Log ("right");
+		case "walkRight":
+			Debug.Log ("walkRight");
 			break;
 
-		case "left":
-			Debug.Log ("left");
+		case "ranRight":
+			Debug.Log ("ranRight");
+			break;
+
+		case "walkLeft":
+			Debug.Log ("walkLeft");
+			break;
+
+		case "ranLeft":
+			Debug.Log ("ranLeft");
 			break;
 
 		case "touch":
@@ -138,8 +160,5 @@ public class PlayerController : MonoBehaviour {
 			Debug.Log ("null");
 			break;
 		}
-
-		Debug.Log (_touchStartPos);
-		Debug.Log (_touchEndPos);
 	}
 }
