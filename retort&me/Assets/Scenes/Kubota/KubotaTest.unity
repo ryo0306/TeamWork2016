@@ -201,7 +201,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67a2aa8fcc88ccb42b52f5ae14e19be2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _directionTest: 30
+  ranningDirection: 150
+  walkingDirection: 100
+  testFlag: 0
 --- !u!23 &2045662431
 MeshRenderer:
   m_ObjectHideFlags: 0
