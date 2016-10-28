@@ -6,16 +6,11 @@ using System.Collections;
 
 public class PlayerMove : MonoBehaviour
 {
-
-
-
     [SerializeField]
 
     public float player_speed = 2;
 
     Vector2 vec;
-
-
 
     Rigidbody rb;
 
@@ -37,38 +32,19 @@ public class PlayerMove : MonoBehaviour
 
         rb = GetComponent<Rigidbody>();
 
-
-
     }
-
-
-
     //ジャンプ
 
     void PlayerJump()
 
     {
-
         if (Input.GetKeyDown("space"))
 
         {
-
-
-
-
-
             rb.AddForce(Vector3.up * jumpforce);
-
-
-
         }
 
-
-
     }
-
-
-
 
 
     //移動
@@ -76,10 +52,6 @@ public class PlayerMove : MonoBehaviour
     void Player_Move()
 
     {
-
-
-
-
 
         if (Input.GetMouseButton(0))
 
@@ -94,16 +66,21 @@ public class PlayerMove : MonoBehaviour
                player_speed * Time.deltaTime);
 
         }
-
+    }
+    
+   void PlayerGravity()
+    {
+        if (Input.GetKey(KeyCode.Z))
+        {
+            rb.drag = 10;
+        }
+        if (Input.GetKeyUp(KeyCode.Z))
+        {
+            rb.drag = 0;
+        }
 
 
     }
-
-
-
-
-
-
 
 
 
@@ -111,18 +88,14 @@ public class PlayerMove : MonoBehaviour
 
     {
 
-
-
         Player_Move();
 
         PlayerJump();
 
+        PlayerGravity();
 
 
     }
 
-
-
-
-
+    
 }
