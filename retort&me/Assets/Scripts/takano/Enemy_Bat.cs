@@ -84,7 +84,7 @@ public class Bezier : MonoBehaviour
 
 
 public class Enemy_Bat : MonoBehaviour {
-
+    [HideInInspector]
     public Bezier myBezier;
     [SerializeField]
     public float t = 0f;
@@ -104,6 +104,7 @@ public class Enemy_Bat : MonoBehaviour {
 
     void Start()
     {
+        //4点のポジションを取っている
         myBezier = new Bezier(new Vector2(enemyStarting.x, enemyStarting.y), new Vector2(enemyMiddle1.x, enemyMiddle1.y), new Vector2(enemyMiddle2.x, enemyMiddle2.y), new Vector2(enemyEnd.x, enemyEnd.y));
     }
 
@@ -123,8 +124,7 @@ public class Enemy_Bat : MonoBehaviour {
             transform.position = vec;
 
             t += 0.008f;
-            //if (t > 1f)
-               // t = 0f;
+           
         }
 
         if(enemybat.transform.position.y > enemyEnd.y)

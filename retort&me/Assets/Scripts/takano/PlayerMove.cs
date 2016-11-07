@@ -60,6 +60,23 @@ public class PlayerMove : MonoBehaviour
         }
     }
 
+    void Player_Dash()
+    {
+        if (Input.GetMouseButton(1))
+
+        {
+
+            pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
+            //this.transform.position += new Vector3(player_speed, 0, 0);
+            //現在地からtouchした場所までの指定
+            transform.position = Vector3.MoveTowards(transform.position, new Vector3(pos.x, pos.y),
+                                                     playerSpeed * Time.deltaTime * 2);
+        }
+    }
+
+
+
     void PlayerGravity()
     {
         if (Input.GetKey(KeyCode.Z))
@@ -80,8 +97,9 @@ public class PlayerMove : MonoBehaviour
         Player_Move();
         PlayerJump();
         PlayerGravity();
-     
-           
+        Player_Dash();
+
+
     }
 
     
