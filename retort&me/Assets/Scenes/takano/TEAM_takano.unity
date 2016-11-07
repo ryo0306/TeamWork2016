@@ -97,7 +97,7 @@ GameObject:
   - 65: {fileID: 61610514}
   - 23: {fileID: 61610513}
   m_Layer: 0
-  m_Name: Cube (1)
+  m_Name: "\u66F2\u7DDA\u306E\u7D42\u70B9"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -173,7 +173,7 @@ GameObject:
   - 23: {fileID: 213380589}
   - 114: {fileID: 213380593}
   m_Layer: 0
-  m_Name: Cube
+  m_Name: umbrellaclosed
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -476,7 +476,7 @@ GameObject:
   - 23: {fileID: 948280942}
   - 114: {fileID: 948280941}
   m_Layer: 0
-  m_Name: Sphere
+  m_Name: umbrellaopend
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -563,7 +563,7 @@ GameObject:
   - 65: {fileID: 1497518593}
   - 23: {fileID: 1497518592}
   m_Layer: 0
-  m_Name: Cube (2)
+  m_Name: "\u66F2\u7DDA\u306E\u4E2D\u70B9\uFF11"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -831,7 +831,7 @@ GameObject:
   - 65: {fileID: 1992684065}
   - 23: {fileID: 1992684064}
   m_Layer: 0
-  m_Name: Cube (3)
+  m_Name: "\u66F2\u7DDA\u306E\u4E2D\u70B9\uFF12"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
