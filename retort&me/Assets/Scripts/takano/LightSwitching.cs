@@ -24,7 +24,6 @@ public class LightSwitching : MonoBehaviour {
     {
         if (isLightUp == false)
         {
-            
             GetComponent<Light>().enabled = false;
             GetComponent<Collider>().enabled = false;
         }
