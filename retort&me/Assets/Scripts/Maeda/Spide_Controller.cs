@@ -3,9 +3,11 @@ using System.Collections;
 
 public class Spide_Controller : MonoBehaviour {
 
+    //クモの追尾
+    //SpiderTracking　プレハブ名
 
     //追いかけるターゲット
-    public Transform target;
+    private Transform target;
     // 回転速度
     public float rotMax;
     //敵のスピード
