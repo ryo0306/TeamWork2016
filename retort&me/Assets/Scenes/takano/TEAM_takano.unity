@@ -276,7 +276,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!23 &514509810
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -348,7 +348,7 @@ MonoBehaviour:
   myBezier: {fileID: 0}
   t: 0
   enemybat: {fileID: 514509809}
-  enemyStarting: {x: 5, y: 4.5}
+  enemyStart: {x: 0, y: 0}
   enemyEnd: {x: -12, y: 6}
   enemyMiddle1: {x: -1, y: -12}
   enemyMiddle2: {x: -8.5, y: -11}
@@ -1022,10 +1022,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f9e6a47ff27f5c42babceb57ea90142, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerSpeed: 2
+  nomalSpeed: 1
+  dashSpeed: 2
   openedDrag: 10
   closedDrag: 0
   jumpforce: 300
+  dashRange: 3
+  minRange: 0.1
 --- !u!54 &1832957194
 Rigidbody:
   m_ObjectHideFlags: 0

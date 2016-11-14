@@ -5,7 +5,9 @@ TagManager:
   serializedVersion: 2
   tags:
   - "\u4EEEEnemy"
-  - New Tag
+  - Ground
+  - Light
+  - Enemy
   layers:
   - Default
   - TransparentFX

@@ -88,8 +88,9 @@ public class Enemy_Bat : MonoBehaviour {
     public Bezier myBezier;
     [SerializeField]
     public float t = 0f;
-    [SerializeField]
-    private GameObject enemybat = null;
+
+    [SerializeField,Range(0.000f,0.010f)]
+    public float speed = 0.008f;
 
     [SerializeField, Tooltip("Enemyの始点")]
     public Vector2 enemyStarting;
@@ -104,16 +105,27 @@ public class Enemy_Bat : MonoBehaviour {
 
     void Start()
     {
+        enemyStarting = transform.position;
+        enemyEnd += new Vector2(transform.position.x, transform.position.y);
+
         //4点のポジションを取っている
         myBezier = new Bezier(new Vector2(enemyStarting.x, enemyStarting.y), new Vector2(enemyMiddle1.x, enemyMiddle1.y), new Vector2(enemyMiddle2.x, enemyMiddle2.y), new Vector2(enemyEnd.x, enemyEnd.y));
     }
 
-    void OnTriggerEnter(Collider coll)
+
+
+    void OnCollisionEnter(Collision coll)
     {
         if (coll.gameObject.tag == "Player")
         {
-            bat = true;    
+            GameManager.Instace.Dead();
         }
+    }
+
+
+    public void InSight()
+    {
+        bat = true;
     }
 
     void EnemyMove()
@@ -127,9 +139,9 @@ public class Enemy_Bat : MonoBehaviour {
            
         }
 
-        if(enemybat.transform.position.y > enemyEnd.y)
+        if (t > 1.0f)
         {
-            Destroy(enemybat);
+            Destroy(this.gameObject);
         }
 
 

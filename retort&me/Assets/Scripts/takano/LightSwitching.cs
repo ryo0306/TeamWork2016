@@ -3,7 +3,6 @@ using System.Collections;
 
 public class LightSwitching : MonoBehaviour {
     
-    public GameObject 仮Enemy = null;
 
     public bool isLightUp = false;
 
@@ -12,13 +11,17 @@ public class LightSwitching : MonoBehaviour {
 	
 	}
 
+
     void OnTriggerEnter(Collider coll)
     {
-        if (coll.gameObject.tag == "仮Enemy")
+        if (coll.gameObject.tag == "Enemy")
         {
-            Destroy(仮Enemy);
+            Debug.Log("hit");
+            Destroy(coll.gameObject);
         }
     }
+
+
 
     void Switching()
     {

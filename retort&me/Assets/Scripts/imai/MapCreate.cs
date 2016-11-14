@@ -10,19 +10,32 @@ public class MapCreate : MonoBehaviour {
     [SerializeField]
     GameObject []ground = null;
     
-    
     MapLoad.Layer2D data = null;
+
+    [SerializeField]
+    public Vector2 originPos = Vector2.zero;
+
+    [SerializeField]
+    private string dataPath = null;
+
+
 
     void Start()
     {
-        data = MapLoad.Instance.Load("stage2");
+        //初期位置を微調整
+        originPos += new Vector2(0.5f, 0.5f);
+        Load();
         Create();
     }
 
+    void Load()
+    {
+        data = MapLoad.Instance.Load(dataPath);
+    }
 
     void Create()
     {
-        data.Dump();
+        
         for (int y = 0; y < data.height; y++)
         {
             for (int x = 0; x < data.width; x++)
@@ -31,7 +44,7 @@ public class MapCreate : MonoBehaviour {
 
 
                 GameObject temp = ground[data.Get(x, y)-1];
-                temp.transform.position = new Vector3(x, data.height - y, 0);
+                temp.transform.position = new Vector3(originPos.x + x, originPos.y + data.height - y, 0);
                 Instantiate(temp);
             }
         } 

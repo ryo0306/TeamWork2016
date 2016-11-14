@@ -133,8 +133,6 @@ public class MapLoad : MonoBehaviour
             }
         }
 
-        layer.Dump();
-
         return layer;
     }
 }

@@ -17,7 +17,7 @@ public class FadeManager : SingletonMonoBehaviour<FadeManager>
     /// <summary>フェード中の透明度</summary>
     private float fadeAlpha = 0;
     /// <summary>フェード中かどうか</summary>
-    private bool isFading = false;
+    private bool isFading = true;
     /// <summary>フェード色</summary>
     public Color fadeColor = Color.black;
 
