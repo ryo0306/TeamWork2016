@@ -77,6 +77,7 @@ public class Player : MonoBehaviour
         Vector3 direction = new Vector3(1,0,0);
         if (targetPos.x - transform.position.x > 0) direction = new Vector3(1, 0, 0);
         else direction = new Vector3(-1, 0, 0);
+
         if (Mathf.Abs(targetPos.x - transform.position.x) < dashRange)
         {
             //一時的にマジックナンバー
@@ -107,10 +108,6 @@ public class Player : MonoBehaviour
     }
 
 
-    public void Dead()
-    {
-
-    }
 
     void OnCollisionStay(Collision coll)
     {

@@ -40,9 +40,6 @@ public class LightSwitching : MonoBehaviour {
     }
  
     void Update () {
-        
         Switching();
-       
-
     }
 }
