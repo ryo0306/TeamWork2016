@@ -4,7 +4,7 @@ using System.Collections;
 public class Switch : MonoBehaviour {
 
     //LightSwitchingを取っている
-    [SerializeField]
+    [SerializeField,Tooltip("対象のlight")]
     public LightSwitching[] Lightfire;
 
     [SerializeField]
@@ -14,7 +14,7 @@ public class Switch : MonoBehaviour {
     private float waitTime = 5.0f;
 
     [SerializeField]
-    public bool switchings = false;
+    public bool isOn = false;
 
     // Use this for initialization
     void Start ()
@@ -32,7 +32,7 @@ public class Switch : MonoBehaviour {
     {
         while (true)
         {
-            if (switchings == true)
+            if (isOn == true)
             {
                 particle.Play();
                 yield return new WaitForSeconds(waitTime);
@@ -48,7 +48,7 @@ public class Switch : MonoBehaviour {
     void OnMouseDown()
     {
         fountainstarting();
-        switchings = true;
+        isOn = true;
     }
     /*
     void OnTriggerEnter(Collider coll)
