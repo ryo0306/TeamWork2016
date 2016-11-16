@@ -93,23 +93,23 @@ public class Enemy_Bat : MonoBehaviour {
     public float speed = 0.008f;
 
     [SerializeField, Tooltip("Enemyの始点")]
-    public Vector2 enemyStarting;
+    public Vector2 Starting;
     [SerializeField, Tooltip("Enemyの終点")]
-    public Vector2 enemyEnd;
+    public Vector2 End;
     [SerializeField, Tooltip("Enemyの中点１")]
-    public Vector2 enemyMiddle1;
+    public Vector2 Middle1;
     [SerializeField, Tooltip("Enemyの中点２")]
-    public Vector2 enemyMiddle2;
+    public Vector2 Middle2;
 
     public bool bat = false;
 
     void Start()
     {
-        enemyStarting = transform.position;
-        enemyEnd += new Vector2(transform.position.x, transform.position.y);
+        Starting = transform.position;
+        End += new Vector2(transform.position.x, transform.position.y);
 
         //4点のポジションを取っている
-        myBezier = new Bezier(new Vector2(enemyStarting.x, enemyStarting.y), new Vector2(enemyMiddle1.x, enemyMiddle1.y), new Vector2(enemyMiddle2.x, enemyMiddle2.y), new Vector2(enemyEnd.x, enemyEnd.y));
+        myBezier = new Bezier(new Vector2(Starting.x, Starting.y), new Vector2(Middle1.x, Middle1.y), new Vector2(Middle2.x, Middle2.y), new Vector2(End.x, End.y));
     }
 
 
