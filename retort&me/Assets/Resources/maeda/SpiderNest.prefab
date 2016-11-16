@@ -88,6 +88,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spider: {fileID: 168822, guid: 27c98a589f6ac8e4aa73b0e143c6c65a, type: 2}
+  hit_nest: 0
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
