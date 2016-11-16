@@ -27,7 +27,7 @@ public class SpiderNest : MonoBehaviour {
     void OnTriggerEnter(Collider collider)
     {
 
-        if (collider.gameObject.name == "Player"){
+        if (collider.gameObject.tag == "Player"){
             if (hit_nest == false) {
                 Instantiate(spider);
                 hit_nest = true;
