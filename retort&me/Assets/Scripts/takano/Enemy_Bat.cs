@@ -93,13 +93,13 @@ public class Enemy_Bat : MonoBehaviour {
     public float speed = 0.008f;
 
     [SerializeField, Tooltip("Enemyの始点")]
-    public Vector2 Starting;
+    private Vector2 Starting;
     [SerializeField, Tooltip("Enemyの終点")]
-    public Vector2 End;
+    private Vector2 End;
     [SerializeField, Tooltip("Enemyの中点１")]
-    public Vector2 Middle1;
+    private Vector2 Middle1;
     [SerializeField, Tooltip("Enemyの中点２")]
-    public Vector2 Middle2;
+    private Vector2 Middle2;
 
     public bool bat = false;
 
