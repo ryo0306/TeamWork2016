@@ -5,12 +5,6 @@ public class UmbrellaClosed : MonoBehaviour {
     [SerializeField]
     public bool switching;
 
-
-    //public Renderer renderer;
-
-    //GameObject game_object = GameObject.Find("Sphere");
-
-
     // Use this for initialization
     void Start()
     {
@@ -21,8 +15,9 @@ public class UmbrellaClosed : MonoBehaviour {
     void PlayerUmbrella()
     {
 
-        //押している時は表示して離したら切り替わる
-        if (Input.GetKey(KeyCode.Z))
+        //押すと開閉が切り替わる
+
+        if (Input.GetKeyDown(KeyCode.Z))
         {
             if (switching == true)
             {
@@ -30,22 +25,14 @@ public class UmbrellaClosed : MonoBehaviour {
                 switching = false;
 
             }
+
+            else
+            {
+                GetComponent<Renderer>().enabled = true;
+                switching = true;
+            }
         }
-        if (Input.GetKeyUp(KeyCode.Z))
-        {
-
-            //if (switching == false)
-            //{
-            GetComponent<Renderer>().enabled = true;
-            switching = true;
-            //}
-
-        }
-
-
     }
-
-
 
     // Update is called once per frame
     void Update()
@@ -53,7 +40,7 @@ public class UmbrellaClosed : MonoBehaviour {
 
 
         PlayerUmbrella();
-        //Debug.Log(switching);
+        
 
     }
 }

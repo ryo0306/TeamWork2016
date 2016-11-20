@@ -4,9 +4,18 @@ using System.Collections;
 
 public class Player : MonoBehaviour
 {
+
+    public GameObject player;
+
+    public Vector3 defaultScale = Vector3.zero;
+
     Rigidbody rigidBody = null;
 
-    [SerializeField, Range(0.0f,10.0f),Tooltip("移動速度")]
+    public bool gravity = true;
+
+    public UmbrellaClosed umbrellaFlag;
+
+    [SerializeField, Range(0.0f, 10.0f), Tooltip("移動速度")]
     public float nomalSpeed = 1;
 
     [SerializeField, Range(0.0f, 10.0f), Tooltip("ダッシュ時の速度")]
@@ -26,7 +35,7 @@ public class Player : MonoBehaviour
     [SerializeField, Tooltip("ダッシュになる距離")]
     float dashRange = 3;
 
-    [SerializeField,Tooltip("反応しない距離")]
+    [SerializeField, Tooltip("反応しない距離")]
     private float minRange = 0.1f;
 
     private Vector2 originPos = Vector2.zero;
@@ -41,12 +50,14 @@ public class Player : MonoBehaviour
         rigidBody = GetComponent<Rigidbody>();
         targetPos = transform.position;
         originPos = transform.position;
+        defaultScale = transform.lossyScale;
+
     }
 
     //ジャンプ
     void Jump()
     {
-        
+
         //本来はダメ？
         if (Input.GetKeyDown(KeyCode.Space))
         {
@@ -74,7 +85,7 @@ public class Player : MonoBehaviour
 
         if (minRange > Mathf.Abs(targetPos.x - transform.position.x)) return;
 
-        Vector3 direction = new Vector3(1,0,0);
+        Vector3 direction = new Vector3(1, 0, 0);
         if (targetPos.x - transform.position.x > 0) direction = new Vector3(1, 0, 0);
         else direction = new Vector3(-1, 0, 0);
 
@@ -91,24 +102,39 @@ public class Player : MonoBehaviour
         }
     }
 
+    void Squat()
+    {
+        if (Input.GetKey(KeyCode.X))
+        {
+            transform.localScale = new Vector3(1, 0.5f, 1);
+        }
+        else
+        {
+            transform.localScale = new Vector3(1, 1, 1);
+        }
 
+    }
 
 
 
     void Gravity()
     {
-        if (Input.GetKey(KeyCode.Z))
-        {
-            rigidBody.drag = openedDrag;
-        }
-        if (Input.GetKeyUp(KeyCode.Z))
-        {
+      
+            if (umbrellaFlag.switching == true)
+            {
             rigidBody.drag = closedDrag;
+                 jumpforce = 300;
+                
+            }
+            else
+            {
+                rigidBody.drag = openedDrag;
+            jumpforce = 0;
+              
+
+            }
         }
-    }
-
-
-
+    
     void OnCollisionStay(Collision coll)
     {
         if (coll.gameObject.tag == "Ground")
@@ -118,12 +144,6 @@ public class Player : MonoBehaviour
                 jumped = false;
         }
     }
-
-    void OnCollisionExit(Collision coll)
-    {
-
-    }
-
     
     //ここら辺もすべてコルーチン化するべき
     void FixedUpdate()
@@ -134,5 +154,6 @@ public class Player : MonoBehaviour
             Move();
         }
         Gravity();
+        Squat();
     }
 }
