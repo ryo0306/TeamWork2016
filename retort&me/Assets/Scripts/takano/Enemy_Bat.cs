@@ -82,12 +82,18 @@ public class Bezier : MonoBehaviour
 
 
 
-
+/// <summary>
+/// FIXED　高野：コメントを利用すること
+/// 			 これはチーム制作であって、個人制作ではない。
+/// </summary>
 public class Enemy_Bat : MonoBehaviour {
     [HideInInspector]
     public Bezier myBezier;
     [SerializeField]
     public float t = 0f;
+
+	[SerializeField]
+	public bool HitFlag = false;
 
     [SerializeField,Range(0.000f,0.010f)]
     public float speed = 0.008f;
@@ -130,27 +136,44 @@ public class Enemy_Bat : MonoBehaviour {
 
     void EnemyMove()
     {
-        if (bat == true)
-        {
-            Vector3 vec = myBezier.GetPointAtTime(t);
-            transform.position = vec;
+		
+			if (bat == true) {
+				Vector3 vec = myBezier.GetPointAtTime (t);
+				transform.position = vec;
 
-            t += 0.008f;
+				t += 0.008f;
            
-        }
+			}
+
 
         if (t > 1.0f)
         {
             Destroy(this.gameObject);
         }
 
-
-
     }
+
+	/// <summary>
+	/// Gimmicks the hits.
+	///追加点。
+	///別のスクリプトを参照している。
+	///現状、演出を加えたかったが、色の変化などがうまくできなかったため
+	///保留としている。
+	///FIXED：ただ、壊すだけではなく、何かしらの動作をさせてから壊す。
+	/// </summary>
+	void GimmickHits()
+	{
+		if (BatGimmickAnimation.TestMyFlag == true) {
+			Destroy (this.gameObject, 3.0f);
+		}
+	}
 
     void Update()
     {
         EnemyMove();
+		//デバッグのために読み込んでいる。
+		//他にいい方法があるかもしれないが現状はこれで動作確認する。
+		GimmickHits ();
     }
 }
 

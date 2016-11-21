@@ -8,6 +8,7 @@ TagManager:
   - Ground
   - Light
   - Enemy
+  - Umbrella
   layers:
   - Default
   - TransparentFX
