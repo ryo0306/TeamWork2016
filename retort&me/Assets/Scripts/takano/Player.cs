@@ -5,6 +5,8 @@ using System.Collections;
 public class Player : MonoBehaviour
 {
 
+  
+
     public GameObject player;
 
     public Vector3 defaultScale = Vector3.zero;
@@ -102,20 +104,7 @@ public class Player : MonoBehaviour
         }
     }
 
-    void Squat()
-    {
-        if (Input.GetKey(KeyCode.X))
-        {
-            transform.localScale = new Vector3(1, 0.5f, 1);
-        }
-        else
-        {
-            transform.localScale = new Vector3(1, 1, 1);
-        }
-
-    }
-
-
+  
 
     void Gravity()
     {
@@ -154,6 +143,6 @@ public class Player : MonoBehaviour
             Move();
         }
         Gravity();
-        Squat();
+       
     }
 }
