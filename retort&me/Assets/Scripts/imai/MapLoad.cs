@@ -36,6 +36,32 @@ public class MapLoad : MonoBehaviour
         public int height; // 高さ
         public int[] _vals = null; // マップデータ
 
+        public int tileWidth
+        {
+            get { return tileWidth; }
+            set
+            {
+                if (tileWidth < 0)
+                {
+                    Debug.LogErrorFormat("tileの読み込み値が負の値になりました。よって0にします。");
+                }
+                tileWidth = value;
+            }
+        }
+
+        public int tileHeight
+        {
+            get { return tileHeight; }
+            set
+            {
+                if (tileHeight < 0)
+                {
+                    Debug.LogErrorFormat("tileの読み込み値が負の値になりました。よって0にします。");
+                }
+                tileHeight = value;
+            }
+        }
+
         // 作成
         public void Create(int width, int height)
         {
@@ -105,34 +131,42 @@ public class MapLoad : MonoBehaviour
             {
                 if (child.Name != "layer") { continue; } // layerノード以外は見ない
 
-                // マップ属性を取得
-                XmlAttributeCollection attrs = child.Attributes;
-                int w = int.Parse(attrs.GetNamedItem("width").Value); // 幅を取得
-                int h = int.Parse(attrs.GetNamedItem("height").Value) + 1; // 高さを取得
-                // レイヤー生成
-                layer.Create(w, h);
-                XmlNode node = child.FirstChild; // 子ノードは<data>のみ
-                XmlNode n = node.FirstChild; // テキストノードを取得
-                string val = n.Value; // テキストを取得
-                // CSV(マップデータ)を解析
-                int y = 0;
-                foreach (string line in val.Split('\n'))
+                
+
+                if (child.Name == "layer")
                 {
-                    int x = 0;
-                    foreach (string s in line.Split(','))
+                    Debug.Log("layerLoadNow");
+                    // マップ属性を取得
+                    XmlAttributeCollection attrs = child.Attributes;
+                    int w = int.Parse(attrs.GetNamedItem("width").Value); // 幅を取得
+                    int h = int.Parse(attrs.GetNamedItem("height").Value) + 1; // 高さを取得
+                                                                               // レイヤー生成
+                    layer.Create(w, h);
+                    XmlNode node = child.FirstChild; // 子ノードは<data>のみ
+                    XmlNode n = node.FirstChild; // テキストノードを取得
+                    string val = n.Value; // テキストを取得
+                                          // CSV(マップデータ)を解析
+                    int y = 0;
+                    foreach (string line in val.Split('\n'))
                     {
-                        int v = 0;
-                        // ","で終わるのでチェックが必要
-                        if (int.TryParse(s, out v) == false) { continue; }
-                        // 値を設定
-                        layer.Set(x, y, v);
-                        x++;
+                        int x = 0;
+                        foreach (string s in line.Split(','))
+                        {
+                            int v = 0;
+                            // ","で終わるのでチェックが必要
+                            if (int.TryParse(s, out v) == false) { continue; }
+                            // 値を設定
+                            layer.Set(x, y, v);
+                            x++;
+                        }
+                        y++;
                     }
-                    y++;
                 }
             }
-        }
+          
 
+
+        }
         return layer;
     }
 }

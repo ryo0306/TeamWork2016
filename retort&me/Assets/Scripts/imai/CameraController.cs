@@ -11,6 +11,12 @@ public class CameraController : MonoBehaviour
     private Vector3 offset;
     void Start()
     {
+        if (target == null)
+        {
+            Debug.LogErrorFormat("targetにするオブジェクトが指定されていません。");
+            Debug.LogFormat("よって一時的に自身のGameObjectを入れます。");
+            target = this.gameObject;
+        }
         offset = transform.position - target.transform.position;
     }
 

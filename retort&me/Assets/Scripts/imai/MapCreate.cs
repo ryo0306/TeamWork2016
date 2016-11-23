@@ -35,7 +35,7 @@ public class MapCreate : MonoBehaviour {
 
     void Create()
     {
-        
+       
         for (int y = 0; y < data.height; y++)
         {
             for (int x = 0; x < data.width; x++)
@@ -47,6 +47,9 @@ public class MapCreate : MonoBehaviour {
                 temp.transform.position = new Vector3(originPos.x + x, originPos.y + data.height - y, 0);
                 Instantiate(temp);
             }
-        } 
+        }
+        Debug.Log(data.tileHeight);
+        Debug.Log(data.tileWidth);
+
     }
 }
