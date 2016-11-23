@@ -1,37 +1,147 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Spide_Controller : MonoBehaviour {
+public class Spide_Controller : MonoBehaviour
+{
+    [SerializeField]
+    SpiderYarn[] spiderYarn;
 
-    //クモの追尾
-    //SpiderTracking　プレハブ名
+    //movコルーチンが呼ばれているか否か確認
+    bool isMove;
 
-    //追いかけるターゲット
-    private Transform target;
-    // 回転速度
-    public float rotMax;
-    //敵のスピード
-    private float speed = 0.1f;
+    [SerializeField]
+    private float spiderSpeed;
 
-    Vector3 move = new Vector3(0, 0, 0);
+    //bool mov;
+
+        //振り向く時間
+    [SerializeField]
+    float turnTime;
+
+
+    [SerializeField]
+    Vector3 startPos;
 
     // Use this for initialization
-    void Start () {
-   
-     //ゲームオブジェクト名で確認している　↓
-            target = GameObject.Find("Player").transform;
+    void Start(){
+
+        //startPos = new Vector3();
+        startPos = transform.position;
 
     }
-	
-	// Update is called once per frame
-	void Update () {
 
-        // ターゲットの方向を向く
-        Vector3 vec = target.position - transform.position;
-        transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(new Vector3(vec.x, vec.y, 0)), rotMax);
-        // 正面方向に移動
-        transform.Translate(Vector3.forward * speed); 
+    // Update is called once per frame
+    void Update()
+    {
+        //衝突判定の確認
+        for (int i = 0; i < spiderYarn.Length; ++i)
+        {
+            if (spiderYarn[i].hitYarn == true && isMove == false)
+            {
+                Debug.Log(" spiderHit : " + i);
+                var pos = spiderYarn[i].transform.position;
+
+                StartCoroutine(Move(pos, spiderSpeed));
+            }
+        }
     }
 
+
+
+
+    void OnTriggerEnter(Collider collider)
+    {
+        if (collider.gameObject.tag == "Player"){
+            Debug.Log("プレイヤーを見つけたよ");
+        }
+    }
+
+    //クモを移動させるコルーチン
+    //コルーチンは終了するまで動く処理
+
+    IEnumerator Move(Vector3 pos_, float speed){
+
+        isMove = true;
+
+        //方向を作る
+
+
+        Debug.Log("Move");
+
+        bool target = false;
+
+        while (target == false)
+        {
+            yield return null;
+
+            var movDir = pos_ - transform.position;
+            movDir.Normalize();
+            var mov = movDir * speed;
+
+            if (Mathf.Abs(mov.x) < 0.01f)
+            {
+                target = true;
+            }
+            transform.position += mov;
+        }
+
+        isMove = false;
+
+        Debug.Log("ムーブ終了");
+
+        StartCoroutine(TurnIterator());
+
+
+    }
+
+
+    //振り向きするコルーチン
+    IEnumerator TurnIterator()
+    {
+        yield return new WaitForSeconds(turnTime);
+        transform.Rotate(0, 180, 0);
+
+        yield return new WaitForSeconds(turnTime);
+        transform.Rotate(0, 180, 0);
+
+        yield return new WaitForSeconds(turnTime);
+        transform.Rotate(0, 180, 0);
+
+        Debug.Log("ターン終了");
+
+        StartCoroutine(positionTrun(spiderSpeed));
+
+    }
+
+    IEnumerator positionTrun(float speed) {
+
+            isMove = true;
+
+            //方向を作る
+
+            bool target = false;
+
+            while (target == false)
+            {
+                yield return null;
+
+                var movDir = startPos - transform.position;
+                movDir.Normalize();
+                var mov = movDir * speed;
+
+                if (Mathf.Abs(mov.x) < 0.01f)
+                {
+                    target = true;
+                }
+                transform.position += mov;
+            }
+
+        isMove = false;
+
+        Debug.Log("戻り終了");
+
+    }
+
+    
 
 }

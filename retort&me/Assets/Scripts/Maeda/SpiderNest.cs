@@ -14,8 +14,8 @@ public class SpiderNest : MonoBehaviour {
     [SerializeField]
      private bool hit_nest = false;
 
-    [SerializeField]
-    private Vector3 spiderpos;
+    [SerializeField,Tooltip("クモの出現場所の位置を設定")]
+    private Vector3 spiderPosition;
 
     // Use this for initialization
     void Start () {
@@ -32,7 +32,7 @@ public class SpiderNest : MonoBehaviour {
 
         if (collider.gameObject.tag == "Player"){
             if (hit_nest == false) {
-                Instantiate(spider,new Vector3(spiderpos.x, spiderpos.y,spiderpos.z), Quaternion.identity);
+                Instantiate(spider,new Vector3(spiderPosition.x, spiderPosition.y, spiderPosition.z), Quaternion.identity);
                 hit_nest = true;
                 Debug.Log("当たった");
                 Debug.Log("クモでたよ");
