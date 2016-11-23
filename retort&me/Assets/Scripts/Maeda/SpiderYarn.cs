@@ -8,19 +8,16 @@ public class SpiderYarn : MonoBehaviour {
     //ついてる先 SpiderYarn
 
     [SerializeField]
-    Vector3 PlayerSpeed = new Vector3(0, 0, 0);
-
-    [SerializeField]
     GameObject spidertracking;
 
+
     [SerializeField]
-    private bool his_yarn = false;
+    public bool hitYarn = false;
 
 
     // Use this for initialization
     void Start () {
 
-        PlayerSpeed = transform.position;
 
 
     }
@@ -31,18 +28,18 @@ public class SpiderYarn : MonoBehaviour {
     }
 
 
-    void OnTriggerEnter(Collider collider)
-    {
-        if (collider.gameObject.name == "Player")
-        {
-            if (his_yarn == false)
-            {
-                Instantiate(spidertracking);
-                his_yarn = true;
-                Debug.Log("当たった");
-                Debug.Log("追尾クモでたよ");
-
-            }
+    void OnTriggerEnter(Collider collider){
+        if (collider.gameObject.tag == "Player"){
+            hitYarn = true;
+            Debug.Log("当たった");
         }
     }
+
+    void OnTriggerExit(Collider collider) { 
+        if (collider.gameObject.tag == "Player"){
+            hitYarn = false;
+            Debug.Log("当たらなくなった");
+        }
+    }
+
 }

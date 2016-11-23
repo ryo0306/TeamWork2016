@@ -7,14 +7,12 @@ public class GhostSearch : MonoBehaviour {
     private Ghost ghost;
 
 
-    void OnTriggerStay(Collider coll)
-    {
+    void OnTriggerStay(Collider coll){
         if (coll.gameObject.tag == "Player")
             ghost.InSight(coll.transform.position);
     }
 
-    void OnTriggerExit(Collider coll)
-    {
+    void OnTriggerExit(Collider coll){
         if (coll.gameObject.tag == "Player")
             ghost.Missing();
     }
