@@ -2,13 +2,14 @@
 
 using System.Collections;
 
+//落下速度の変化
+//http://ftvoid.com/blog/post/742
+
+
+
 public class Player : MonoBehaviour
 {
-
-  
-
-    public GameObject player;
-
+   
     public Vector3 defaultScale = Vector3.zero;
 
     Rigidbody rigidBody = null;
@@ -26,13 +27,8 @@ public class Player : MonoBehaviour
     //タッチされた位置
     private Vector2 targetPos;
 
-    [SerializeField, Tooltip("開いてる時の空気抵抗")]
-    float openedDrag = 10;
-    [SerializeField, Tooltip("閉じてる時の空気抵抗")]
-    float closedDrag = 0;
-
     [SerializeField, Tooltip("ジャンプの初速度")]
-    float jumpforce = 300;
+    float jumpForce = 300;
 
     [SerializeField, Tooltip("ダッシュになる距離")]
     float dashRange = 3;
@@ -43,6 +39,8 @@ public class Player : MonoBehaviour
     private Vector2 originPos = Vector2.zero;
 
     bool jumped = false;
+
+    public float coefficient;
 
     //一時的なもの
     float DebugTime = 0.0f;
@@ -68,7 +66,7 @@ public class Player : MonoBehaviour
                 Debug.Log("can't");
                 return;
             }
-            rigidBody.AddForce(Vector3.up * jumpforce);
+            rigidBody.AddForce(Vector3.up * jumpForce);
             jumped = true;
             DebugTime = Time.fixedTime;
         }
@@ -111,17 +109,20 @@ public class Player : MonoBehaviour
       
             if (umbrellaFlag.switching == true)
             {
-            rigidBody.drag = closedDrag;
-                 jumpforce = 300;
-                
+            
+                 jumpForce = 300;
+            dashRange = 3;
             }
             else
             {
-                rigidBody.drag = openedDrag;
-            jumpforce = 0;
-              
+           
+                jumpForce = 0;
+                dashRange = 100;
 
-            }
+            
+                rigidBody.AddForce(-coefficient * rigidBody.velocity);
+            
+        }
         }
     
     void OnCollisionStay(Collision coll)
