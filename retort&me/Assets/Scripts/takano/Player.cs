@@ -42,6 +42,10 @@ public class Player : MonoBehaviour
 
     public float coefficient;
 
+    public bool squat = true;
+
+   
+
     //一時的なもの
     float DebugTime = 0.0f;
 
@@ -111,20 +115,59 @@ public class Player : MonoBehaviour
             {
             
                  jumpForce = 300;
-            dashRange = 3;
+                 dashRange = 3;
             }
             else
-            {
-           
+            {         
                 jumpForce = 0;
                 dashRange = 100;
 
-            
-                rigidBody.AddForce(-coefficient * rigidBody.velocity);
-            
-        }
+                rigidBody.AddForce(-coefficient * rigidBody.velocity);     
+            }
         }
     
+    void Hiding()
+    {
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            if (umbrellaFlag.switching == false && squat == false)
+            {
+
+                Debug.Log("隠れている");
+                
+
+            }
+            else
+            {
+                Debug.Log("隠れてない");
+               
+            }
+        }
+    }
+
+    void Squat()
+    {
+
+        if (Input.GetKeyDown(KeyCode.X))
+        {
+            if (squat == true)
+            {
+                Debug.Log("しゃがむ");
+                squat = false;
+            }
+
+            else
+            {
+                Debug.Log("しゃがんでない");
+                squat = true;
+            }
+        }
+
+    }
+
+
+
+
     void OnCollisionStay(Collision coll)
     {
         if (coll.gameObject.tag == "Ground")
@@ -144,6 +187,7 @@ public class Player : MonoBehaviour
             Move();
         }
         Gravity();
-       
+        Squat();
+        Hiding();
     }
 }

@@ -15,13 +15,13 @@ public class barrel : MonoBehaviour {
         if (UmbrellaFlags.switching == true)
         {
 
-            GetComponent<Rigidbody>().isKinematic = false;
+            GetComponent<Rigidbody>().mass = 0;
            
         }
 
         else
         {
-            GetComponent<Rigidbody>().isKinematic = true;
+            GetComponent<Rigidbody>().mass = 10;
            
         }
     }

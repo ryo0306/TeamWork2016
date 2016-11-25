@@ -12,7 +12,7 @@ public class UmbrellaSwitcing : MonoBehaviour {
     }
 
 
-    public void OnClick(int id)
+    public void OnClick()
     {
       
 
