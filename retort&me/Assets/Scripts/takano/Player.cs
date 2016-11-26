@@ -40,11 +40,12 @@ public class Player : MonoBehaviour
 
     bool jumped = false;
 
-    public float coefficient;
-
     public bool squat = true;
 
-   
+    public bool isGround;
+
+    [SerializeField]
+    public float drag;
 
     //一時的なもの
     float DebugTime = 0.0f;
@@ -55,6 +56,8 @@ public class Player : MonoBehaviour
         targetPos = transform.position;
         originPos = transform.position;
         defaultScale = transform.lossyScale;
+
+
 
     }
 
@@ -122,7 +125,14 @@ public class Player : MonoBehaviour
                 jumpForce = 0;
                 dashRange = 100;
 
-                rigidBody.AddForce(-coefficient * rigidBody.velocity);     
+            if(isGround == false)
+            {
+               
+                rigidBody.velocity += new Vector3(0, drag);
+
+            }
+            
+          
             }
         }
     
@@ -147,7 +157,6 @@ public class Player : MonoBehaviour
 
     void Squat()
     {
-
         if (Input.GetKeyDown(KeyCode.X))
         {
             if (squat == true)
@@ -165,9 +174,6 @@ public class Player : MonoBehaviour
 
     }
 
-
-
-
     void OnCollisionStay(Collision coll)
     {
         if (coll.gameObject.tag == "Ground")
@@ -175,9 +181,27 @@ public class Player : MonoBehaviour
             if ((coll.transform.position.y + coll.transform.localScale.y / 2) < transform.position.y - transform.localScale.y / 2)
                 if(Time.fixedTime - DebugTime > 0.1f)
                 jumped = false;
+            isGround = true;
         }
+       
     }
     
+    void OnCollisionExit(Collision coll)
+    {
+        if (coll.gameObject.tag == "Ground")
+        {
+            
+            isGround = false;
+
+
+        }
+
+
+    }
+
+
+
+
     //ここら辺もすべてコルーチン化するべき
     void FixedUpdate()
     {

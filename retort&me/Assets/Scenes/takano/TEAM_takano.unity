@@ -1291,8 +1291,9 @@ MonoBehaviour:
   jumpForce: 0
   dashRange: 3
   minRange: 0.1
-  coefficient: 4
   squat: 1
+  isGround: 0
+  drag: 0.18
 --- !u!54 &1526685484
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1552,7 +1553,7 @@ GameObject:
   - 54: {fileID: 1720339698}
   m_Layer: 0
   m_Name: Cube
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

@@ -6,6 +6,8 @@ public class UmbrellaSwitcing : MonoBehaviour {
 
     public UmbrellaClosed UmbrellaSwitch;
 
+
+
     // Use this for initialization
     void Start () {
 
