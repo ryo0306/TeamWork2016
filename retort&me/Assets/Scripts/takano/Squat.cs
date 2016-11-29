@@ -15,14 +15,13 @@ public class Squat : MonoBehaviour {
     void Squatt()
     {
 
-      
-           
             if (Input.GetKeyDown(KeyCode.X))
         {
             Debug.Log(content);
             renderer.sprite = image[content];
             content++;
-                if (content >= image.Length) content = 0;
+                if (content >= image.Length)
+                content = 0;
             }
 
         
