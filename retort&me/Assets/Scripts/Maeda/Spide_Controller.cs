@@ -22,6 +22,8 @@ public class Spide_Controller : MonoBehaviour
     [SerializeField]
     Vector3 startPos;
 
+
+
     // Use this for initialization
     void Start(){
 
@@ -46,9 +48,6 @@ public class Spide_Controller : MonoBehaviour
         }
     }
 
-
-
-
     void OnTriggerEnter(Collider collider)
     {
         if (collider.gameObject.tag == "Player"){
@@ -69,31 +68,65 @@ public class Spide_Controller : MonoBehaviour
         Debug.Log("Move");
 
         bool target = false;
+        //変数名決める
+        bool movCheck = false;
 
+        float movDir_ = pos_.x - transform.position.x;
+        //movDir.Normalize();
+
+        if (movDir_ >= 0)
+        {
+            movCheck = true;
+        }
+        else
+        {
+            movCheck = false;
+        }
+
+        //Xだけにしました。
         while (target == false)
         {
             yield return null;
+            //座標とpositionを計算している
+            float movDir = pos_.x - transform.position.x;
+            //movDir.Normalize();
 
-            var movDir = pos_ - transform.position;
-            movDir.Normalize();
-            var mov = movDir * speed;
-
-            if (Mathf.Abs(mov.x) < 0.01f)
+            if (movCheck == true)
             {
-                target = true;
+                float mov = speed;
+                //　Abs絶対値　
+                if (movDir <= 0f)
+                {
+                    target = true;
+                    Debug.Log("もうお家帰るｗｗ");
+                }
+
+                transform.position += new Vector3(mov, 0, 0);
+
             }
-            transform.position += mov;
+            else
+            {
+                float mov = -speed;
+                //　Abs絶対値　
+                if (movDir >= 0f)
+                {
+                    target = true;
+                    Debug.Log("もうお家帰る1000");
+                }
+                transform.position += new Vector3(mov, 0, 0);
+            }
         }
 
-        isMove = false;
-
-        Debug.Log("ムーブ終了");
+        float pos_y = transform.position.y;
+        transform.position = new Vector3 (pos_.x,pos_y, 0);
 
         StartCoroutine(TurnIterator());
 
+        //isMove = false;
+
+        Debug.Log("ムーブ終了");
 
     }
-
 
     //振り向きするコルーチン
     IEnumerator TurnIterator()
@@ -115,33 +148,104 @@ public class Spide_Controller : MonoBehaviour
 
     IEnumerator positionTrun(float speed) {
 
-            isMove = true;
+            //isMove = true;
 
             //方向を作る
 
             bool target = false;
-
+        /*
             while (target == false)
             {
                 yield return null;
 
-                var movDir = startPos - transform.position;
-                movDir.Normalize();
-                var mov = movDir * speed;
+            float movDir = startPos.x - transform.position.x;
+            //movDir.Normalize();
 
+            if (movDir >= 0)
+            {
+                movDir = 1;
+            }
+            else
+            {
+                movDir = -1;
+            }
+
+            float mov = movDir * speed;
+
+            if (Mathf.Abs(mov) < 1f)
+            {
+                target = true;
+            }
+            transform.position += new Vector3 (mov, 0, 0);
+            
+                var movDir = startPos - transform.position;
+                //movDir.Normalize();
+                var mov = movDir * speed;
+                
                 if (Mathf.Abs(mov.x) < 0.01f)
                 {
                     target = true;
                 }
                 transform.position += mov;
-            }
+           
+        }
+          */
 
-        isMove = false;
+        bool movCheck = false;
+
+        float movDir_ = startPos.x - transform.position.x;
+        //movDir.Normalize();
+
+        if (movDir_ >= 0)
+        {
+            movCheck = true;
+        }
+        else
+        {
+            movCheck = false;
+        }
+
+        //Xだけにしました。
+        while (target == false)
+        {
+            yield return null;
+            //座標とpositionを計算している
+            float movDir = startPos.x - transform.position.x;
+            //movDir.Normalize();
+
+            if (movCheck == true)
+            {
+                float mov = speed;
+                //　Abs絶対値　
+                if (movDir <= 0f)
+                {
+                    target = true;
+                    Debug.Log("もうお家帰るｗｗ");
+                }
+
+                transform.position += new Vector3(mov, 0, 0);
+
+            }
+            else
+            {
+                float mov = -speed;
+                //　Abs絶対値　
+                if (movDir >= 0f)
+                {
+                    target = true;
+                    Debug.Log("もうお家帰る");
+                }
+                transform.position += new Vector3(mov, 0, 0);
+            }
+        }
+
+        float pos_y = transform.position.y;
+        transform.position = new Vector3(startPos.x, pos_y, 0);
+
 
         Debug.Log("戻り終了");
 
+        isMove = false;
+        
+        }
     }
-
-    
-
-}

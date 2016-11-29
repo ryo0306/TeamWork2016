@@ -31,14 +31,14 @@ public class SpiderYarn : MonoBehaviour {
     void OnTriggerEnter(Collider collider){
         if (collider.gameObject.tag == "Player"){
             hitYarn = true;
-            Debug.Log("当たった");
+            //Debug.Log("当たった");
         }
     }
 
     void OnTriggerExit(Collider collider) { 
         if (collider.gameObject.tag == "Player"){
             hitYarn = false;
-            Debug.Log("当たらなくなった");
+            //Debug.Log("当たらなくなった");
         }
     }
 
