@@ -36,10 +36,10 @@ public class Switch : MonoBehaviour {
             {
                 particle.Play();
                 yield return new WaitForSeconds(waitTime);
-                foreach (var l in Lightfire)
+                /*foreach (var l in Lightfire)
                 {
-                    l.isLightUp = true;
-                }
+                    l.isLightUp = false;
+                }*/
             }
             yield return null;
         }
@@ -47,6 +47,7 @@ public class Switch : MonoBehaviour {
 
     void OnMouseDown()
     {
+        Debug.Log("aaaaaaaaaaa");
         fountainstarting();
         isOn = true;
     }
