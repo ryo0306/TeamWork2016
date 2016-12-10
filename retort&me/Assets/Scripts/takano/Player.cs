@@ -2,9 +2,6 @@
 
 using System.Collections;
 
-//落下速度の変化
-//http://ftvoid.com/blog/post/742
-
 
 
 public class Player : MonoBehaviour
@@ -12,7 +9,7 @@ public class Player : MonoBehaviour
    
     public Vector3 defaultScale = Vector3.zero;
 
-    Rigidbody rigidBody = null;
+    public Rigidbody rigidBody = null;
 
     public bool gravity = true;
 
@@ -43,6 +40,8 @@ public class Player : MonoBehaviour
     public bool squat = true;
 
     public bool isGround;
+
+    
 
     [SerializeField]
     public float drag;
@@ -174,6 +173,7 @@ public class Player : MonoBehaviour
 
     }
 
+
     void OnCollisionStay(Collision coll)
     {
         if (coll.gameObject.tag == "Ground")
@@ -185,7 +185,8 @@ public class Player : MonoBehaviour
         }
        
     }
-    
+
+
     void OnCollisionExit(Collision coll)
     {
         if (coll.gameObject.tag == "Ground")
@@ -193,14 +194,10 @@ public class Player : MonoBehaviour
             
             isGround = false;
 
-
         }
 
-
     }
-
-
-
+  
 
     //ここら辺もすべてコルーチン化するべき
     void FixedUpdate()
