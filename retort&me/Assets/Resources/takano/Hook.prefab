@@ -75,8 +75,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4284bdf26714fc44889acfd6f88b5d3c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HookFrag: {fileID: 0}
-  player: {fileID: 0}
+  HookFrag: {fileID: 11416204, guid: 24fc79df6d66c6341bb827a2bc8549e9, type: 2}
+  player: {fileID: 11451606, guid: 24fc79df6d66c6341bb827a2bc8549e9, type: 2}
 --- !u!135 &13598000
 SphereCollider:
   m_ObjectHideFlags: 1
@@ -95,7 +95,17 @@ Prefab:
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
-    m_Modifications: []
+    m_Modifications:
+    - target: {fileID: 0}
+      propertyPath: HookFrag
+      value: 
+      objectReference: {fileID: 11416204, guid: 24fc79df6d66c6341bb827a2bc8549e9,
+        type: 2}
+    - target: {fileID: 0}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 11451606, guid: 24fc79df6d66c6341bb827a2bc8549e9,
+        type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 196384}

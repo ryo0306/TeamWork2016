@@ -16,7 +16,6 @@ public class snake2Out : MonoBehaviour {
 	
 	}
 
-
     void OnTriggerEnter(Collider coll)
     {
         if (coll.gameObject.tag == "Player")
@@ -30,7 +29,7 @@ public class snake2Out : MonoBehaviour {
 
             }
         }
-        
+        /*
         if (coll.gameObject.tag == "Ground")
         {
             isGround = true;
@@ -43,7 +42,7 @@ public class snake2Out : MonoBehaviour {
 
             }
         }
-        
+        */
     }
   
 
