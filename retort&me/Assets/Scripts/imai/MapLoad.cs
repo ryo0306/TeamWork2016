@@ -165,8 +165,9 @@ public class MapLoad : MonoBehaviour
             }
           
 
-
         }
+        Debug.Log(layer.width);
+        Debug.Log(layer.height);
         return layer;
     }
 }

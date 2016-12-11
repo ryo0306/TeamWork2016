@@ -31,6 +31,9 @@ public class MapCreate : MonoBehaviour {
     void Load()
     {
         data = MapLoad.Instance.Load(dataPath);
+        data.Dump();
+        Debug.Log(data.width);
+        Debug.Log(data.height);
     }
 
     void Create()
@@ -41,9 +44,17 @@ public class MapCreate : MonoBehaviour {
             for (int x = 0; x < data.width; x++)
             {
                 if (data.Get(x, y) == 0) continue;
+                GameObject temp = null;
+                if (ground.Length < data.Get(x, y))
+                {
+                    temp = ground[7];
+                }
+                else
+                {
+                    temp = ground[data.Get(x, y) - 1];
+                    
+                }
 
-
-                GameObject temp = ground[data.Get(x, y)-1];
                 temp.transform.position = new Vector3(originPos.x + x, originPos.y + data.height - y, 0);
                 Instantiate(temp);
             }

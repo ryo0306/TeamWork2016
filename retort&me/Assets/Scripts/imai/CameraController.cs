@@ -25,7 +25,7 @@ public class CameraController : MonoBehaviour
     {
         Vector3 targetCamPos = target.transform.position + offset;
         Vector3 temp =  Vector3.Lerp(transform.position, targetCamPos, smoothing * Time.deltaTime);
-        transform.position = new Vector3(temp.x,transform.position.y,transform.position.z);
+        transform.position = new Vector3(temp.x, temp.y ,transform.position.z);
 
         //ここのマジックナンバーを修正
         if (transform.position.x <= 0)
