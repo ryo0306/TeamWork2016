@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class MapCreate : MonoBehaviour {
+public class MapCreate : SingletonMonoBehaviour<MapCreate> {
 
     /// <summary>
     /// 一時的な参照
@@ -19,7 +19,6 @@ public class MapCreate : MonoBehaviour {
     private string dataPath = null;
 
 
-
     void Start()
     {
         //初期位置を微調整
@@ -28,7 +27,7 @@ public class MapCreate : MonoBehaviour {
         Create();
     }
 
-    void Load()
+    public void Load()
     {
         data = MapLoad.Instance.Load(dataPath);
         data.Dump();
