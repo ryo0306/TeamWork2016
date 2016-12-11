@@ -30,9 +30,13 @@ public class LoadConversation : MonoBehaviour {
 	/// 表示するcsvのデータをここで必要な分だけ登録して格納する。
 	/// </summary>
 	private string[] scenarioDictionary = {
-		"Sample1.csv",
-		"Sample2.csv",
-		"Sample3.csv",
+		"Story1.csv",
+		"Story2.csv",
+		"Story3.csv",
+		"Story4.csv",
+		"Story5.csv",
+		"Story6.csv",
+		"Story7.csv",
 	};
 
 	/// <summary>
@@ -44,7 +48,12 @@ public class LoadConversation : MonoBehaviour {
 	// Use this for initialization
 	void Start () 
 	{
-		//ReadFile (0);
+		///一旦、これで読み込んでいる。
+		/// 今後、ここを変えるかもしれない。
+		//for(int i = 0; i < 7; i++)
+		//{
+		//	ReadFile (i);
+		//}
 	}
 
 	/// <summary>
