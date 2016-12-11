@@ -87,15 +87,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 194d305531f20d24a913bc59ec268ca3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ropeway: {fileID: 0}
-  player: {fileID: 0}
+  ropeway: {fileID: 11416204, guid: 24fc79df6d66c6341bb827a2bc8549e9, type: 2}
+  player: {fileID: 11451606, guid: 24fc79df6d66c6341bb827a2bc8549e9, type: 2}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
-    m_Modifications: []
+    m_Modifications:
+    - target: {fileID: 0}
+      propertyPath: ropeway
+      value: 
+      objectReference: {fileID: 11416204, guid: 24fc79df6d66c6341bb827a2bc8549e9,
+        type: 2}
+    - target: {fileID: 0}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 11451606, guid: 24fc79df6d66c6341bb827a2bc8549e9,
+        type: 2}
+    - target: {fileID: 0}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 139942}

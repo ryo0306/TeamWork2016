@@ -117,7 +117,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rigidBody: {fileID: 5410096}
-  S: {fileID: 0}
+  S: {fileID: 11467366, guid: 75950f195a74d1a4db9c49b4a043d2fe, type: 2}
   isCageFrag: 0
 --- !u!1001 &100100000
 Prefab:
@@ -125,7 +125,12 @@ Prefab:
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
-    m_Modifications: []
+    m_Modifications:
+    - target: {fileID: 0}
+      propertyPath: S
+      value: 
+      objectReference: {fileID: 11467366, guid: 75950f195a74d1a4db9c49b4a043d2fe,
+        type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 123574}
