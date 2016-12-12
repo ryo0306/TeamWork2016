@@ -9,7 +9,7 @@ public class CameraController : MonoBehaviour
     public float smoothing = 5f;
 
     private Vector3 offset;
-    void Start()
+    void Awake()
     {
         if (target == null)
         {

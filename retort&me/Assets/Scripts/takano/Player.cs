@@ -52,6 +52,7 @@ public class Player : MonoBehaviour
     void Start()
     {
         rigidBody = GetComponent<Rigidbody>();
+        transform.position = GameManager.Instace.startPos;
         targetPos = transform.position;
         originPos = transform.position;
         defaultScale = transform.lossyScale;

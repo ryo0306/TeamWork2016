@@ -549,7 +549,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22400898, guid: 24fc79df6d66c6341bb827a2bc8549e9, type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: -4.41
+      value: 2.3
       objectReference: {fileID: 0}
     - target: {fileID: 22400898, guid: 24fc79df6d66c6341bb827a2bc8549e9, type: 2}
       propertyPath: m_SizeDelta.x
@@ -1197,6 +1197,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isDead: 0
+  startPos: {x: 0, y: 0, z: 0}
 --- !u!1001 &1211338546
 Prefab:
   m_ObjectHideFlags: 0
@@ -1246,7 +1247,7 @@ Prefab:
       objectReference: {fileID: 1607027854}
     - target: {fileID: 139942, guid: 9f099e71911aaef448535b78dd8c5961, type: 2}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 9f099e71911aaef448535b78dd8c5961, type: 2}
@@ -1616,7 +1617,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!54 &1720339698
 Rigidbody:
   m_ObjectHideFlags: 0
