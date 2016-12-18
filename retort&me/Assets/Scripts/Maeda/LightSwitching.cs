@@ -2,7 +2,16 @@
 using System.Collections;
 
 public class LightSwitching : MonoBehaviour {
+
+
+    ///////////////////////////////////////////
     
+
+    //街灯（　普通　）のライトに付属しています
+
+
+    ///////////////////////////////////////////
+
 
     public bool isLightUp = false;
 
