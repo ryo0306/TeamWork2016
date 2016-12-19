@@ -94,11 +94,11 @@ Prefab:
     m_Modifications:
     - target: {fileID: 480238, guid: 54568d2814c704043ae2be7a23694f8b, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -5.6
+      value: -0.07
       objectReference: {fileID: 0}
     - target: {fileID: 480238, guid: 54568d2814c704043ae2be7a23694f8b, type: 2}
       propertyPath: m_LocalPosition.y
-      value: -4.12
+      value: -3.01
       objectReference: {fileID: 0}
     - target: {fileID: 480238, guid: 54568d2814c704043ae2be7a23694f8b, type: 2}
       propertyPath: m_LocalPosition.z
@@ -197,7 +197,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 215695689}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.18, y: -2.51, z: 5}
+  m_LocalPosition: {x: 5.89, y: -3.25, z: 5}
   m_LocalScale: {x: 1.343996, y: 1.5, z: 1.5}
   m_Children: []
   m_Father: {fileID: 0}
@@ -225,7 +225,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 262396118}
   m_LocalRotation: {x: 0, y: 0, z: 0.58011687, w: 0.8145333}
-  m_LocalPosition: {x: 6.8950233, y: -0.09368464, z: -2.7714844}
+  m_LocalPosition: {x: 6.8950233, y: 4.47, z: -2.7714844}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 916363975}
@@ -247,6 +247,23 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!1 &393612592 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 111014, guid: 01a4a31637b5d2d4d88e7473105f7cbf, type: 2}
+  m_PrefabInternal: {fileID: 436338540}
+--- !u!114 &393612593
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 393612592}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a9326bbecf719c84da4f7640d72c6e2f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fountainSwitch: {fileID: 1007646296}
+  isLightUp: 1
 --- !u!1001 &436338540
 Prefab:
   m_ObjectHideFlags: 0
@@ -256,7 +273,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 448384, guid: 01a4a31637b5d2d4d88e7473105f7cbf, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -7.58
+      value: -2.7
       objectReference: {fileID: 0}
     - target: {fileID: 448384, guid: 01a4a31637b5d2d4d88e7473105f7cbf, type: 2}
       propertyPath: m_LocalPosition.y
@@ -290,7 +307,20 @@ Prefab:
       propertyPath: check
       value: 
       objectReference: {fileID: 1007646296}
-    m_RemovedComponents: []
+    - target: {fileID: 10890236, guid: 01a4a31637b5d2d4d88e7473105f7cbf, type: 2}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11446678, guid: 01a4a31637b5d2d4d88e7473105f7cbf, type: 2}
+      propertyPath: isLightUp
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11411586, guid: 01a4a31637b5d2d4d88e7473105f7cbf, type: 2}
+      propertyPath: lightSwitch2
+      value: 
+      objectReference: {fileID: 393612593}
+    m_RemovedComponents:
+    - {fileID: 11446678, guid: 01a4a31637b5d2d4d88e7473105f7cbf, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 01a4a31637b5d2d4d88e7473105f7cbf, type: 2}
   m_IsPrefabParent: 0
 --- !u!1 &490825478
@@ -472,7 +502,7 @@ Rigidbody:
   m_Mass: 1
   m_Drag: 0
   m_AngularDrag: 0.05
-  m_UseGravity: 1
+  m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
@@ -564,13 +594,13 @@ HingeJoint:
   m_Anchor: {x: 0, y: 0.5, z: 0}
   m_Axis: {x: 0, y: 0, z: 100}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: 4.429562, y: 0.37390205, z: 5}
+  m_ConnectedAnchor: {x: 4.429562, y: 4.9375863, z: 5}
   m_UseSpring: 0
   m_Spring:
-    spring: 0
-    damper: 0
-    targetPosition: 100
-  m_UseMotor: 0
+    spring: 180
+    damper: 180
+    targetPosition: 180
+  m_UseMotor: 1
   m_Motor:
     targetVelocity: 0
     force: 0
@@ -616,7 +646,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 492810, guid: 2526ff79090b5974b9d4f6efee9cb689, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -8.58
+      value: -5.23
       objectReference: {fileID: 0}
     - target: {fileID: 492810, guid: 2526ff79090b5974b9d4f6efee9cb689, type: 2}
       propertyPath: m_LocalPosition.y
@@ -748,7 +778,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 474588, guid: 0ae592defadf39f4180f30bec6a879ee, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -4
+      value: 2.46
       objectReference: {fileID: 0}
     - target: {fileID: 474588, guid: 0ae592defadf39f4180f30bec6a879ee, type: 2}
       propertyPath: m_LocalPosition.y

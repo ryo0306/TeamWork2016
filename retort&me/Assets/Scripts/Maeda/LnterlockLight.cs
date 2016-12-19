@@ -3,8 +3,17 @@ using System.Collections;
 
 public class LnterlockLight : MonoBehaviour {
 
+    ////////////////////////////////////////////////////////////////////////
+
+        //連動街灯に付属しています
+        //アタッチメント
+        //噴水
+
+
+    ////////////////////////////////////////////////////////////////////////
+
     [SerializeField]
-    private LightSwitching lightSwitching;
+    private LightSwitch2 lightSwitch2;
 
     [SerializeField]
     private ChecRange checRange;
@@ -23,13 +32,13 @@ public class LnterlockLight : MonoBehaviour {
         if (checRange.canSwitchRenge == true && check.isOn == true)
         {
             //Debug.Log("ccccccc");
-            if (lightSwitching.isLightUp == false)
+            if (lightSwitch2.isLightUp == false)
             {
-                lightSwitching.isLightUp = true;
+                lightSwitch2.isLightUp = true;
             }
             else
             {
-                lightSwitching.isLightUp = false;
+                lightSwitch2.isLightUp = false;
             }
         }
     }
