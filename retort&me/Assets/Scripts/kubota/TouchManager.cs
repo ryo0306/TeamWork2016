@@ -11,119 +11,189 @@ using System.IO;
 //    タップ
 
 
-//public static class TouchManager
-//{
-//    private static Vector3 TouchPosition = Vector3.zero;
-
-//    /// <summary>
-//    /// タッチ情報を取得(エディタと実機を考慮)
-//    /// </summary>
-//    /// <returns>タッチ情報。タッチされていない場合は null</returns>
-//    public static TouchInfo GetTouch()
-//    {
-//        if (Application.isEditor)
-//        {
-//            if (Input.GetMouseButtonDown(0)) { return TouchInfo.Began; }
-//            if (Input.GetMouseButton(0)) { return TouchInfo.Moved; }
-//            if (Input.GetMouseButtonUp(0)) { return TouchInfo.Ended; }
-//        }
-//        else
-//        {
-//            if (Input.touchCount > 0)
-//            {
-//                return (TouchInfo)((int)Input.GetTouch(0).phase);
-//            }
-//        }
-//        return TouchInfo.None;
-//    }
-
-//    /// <summary>
-//    /// タッチポジションを取得(エディタと実機を考慮)
-//    /// </summary>
-//    /// <returns>タッチポジション。タッチされていない場合は (0, 0, 0)</returns>
-//    public static Vector3 GetTouchPosition()
-//    {
-//        if (Application.isEditor)
-//        {
-//            TouchInfo touch = TouchManager.GetTouch();
-//            if (touch != TouchInfo.None) { return Input.mousePosition; }
-//        }
-//        else
-//        {
-//            if (Input.touchCount > 0)
-//            {
-//                Touch touch = Input.GetTouch(0);
-//                TouchPosition.x = touch.position.x;
-//                TouchPosition.y = touch.position.y;
-//                return TouchPosition;
-//            }
-//        }
-//        return Vector3.zero;
-//    }
-
-//    /// <summary>
-//    /// タッチワールドポジションを取得(エディタと実機を考慮)
-//    /// </summary>
-//    /// <param name='camera'>カメラ</param>
-//    /// <returns>タッチワールドポジション。タッチされていない場合は (0, 0, 0)</returns>
-//    public static Vector3 GetTouchWorldPosition(Camera camera)
-//    {
-//        return camera.ScreenToWorldPoint(GetTouchPosition());
-//    }
-//}
-
-
-///// <summary>
-///// タッチ情報。UnityEngine.TouchPhase に None の情報を追加拡張。
-///// </summary>
-//public enum TouchInfo
-//{
-//    /// <summary>
-//    /// タッチなし
-//    /// </summary>
-//    None = 99,
-
-//    // 以下は UnityEngine.TouchPhase の値に対応
-//    /// <summary>
-//    /// タッチ開始
-//    /// </summary>
-//    Began = 0,
-//    /// <summary>
-//    /// タッチ移動
-//    /// </summary>
-//    Moved = 1,
-//    /// <summary>
-//    /// タッチ静止
-//    /// </summary>
-//    Stationary = 2,
-//    /// <summary>
-//    /// タッチ終了
-//    /// </summary>
-//    Ended = 3,
-//    /// <summary>
-//    /// タッチキャンセル
-//    /// </summary>
-//    Canceled = 4,
-//}
-
 
 public class TouchManager : SingletonMonoBehaviour<TouchManager>
 {
+    enum FrickDirection 
+    {
+        Up,
+        Down,
+        Right,
+        Left,
+    }
+
+
+    Touch[] touchs;
+
+    int touchsNum;
+
 
     void Start()
     {
+        if (Input.touchSupported)
+        {
+            Debug.Log("このタッチ入力に対応しています。");
+        }
         Input.multiTouchEnabled = false;
+        Input.simulateMouseWithTouches = false;
     }
 
-    Touch[] touchs;
-    
+    Touch GetTouch(int num_)
+    {
+        if (touchs.Length < num_)
+        {
+            Debug.LogError("そのタッチは検出されませんでした。");
+            Debug.Log("よってからのTouchを返します。");
+            return new Touch();
+        }
+        return touchs[num_];
+    }
+
+    Touch SearchIdGetTouch(int id)
+    {
+        foreach (var touch in touchs)
+        {
+            if (touch.fingerId == id)
+            {
+                return touch;
+            }
+        }
+
+        Debug.LogError("見当するTouchはみつかりませんでした。");
+        Debug.Log("よってからのTouchを返します。");
+        return new Touch();
+    }
+
+    Vector2 GetPos(int num_ = 0)
+    {
+#if UNITY_STANDALONE
+        return Input.mousePosition;
+#else
+        return touchs[num_].position;
+#endif
+    }
+
+
+    /// <summary>
+    /// 現在タップされているすべてを調べます。
+    /// </summary>
+    /// <returns></returns>
+    bool IsBegin()
+    {
+        bool isBegin = false;
+#if UNITY_STANDALONE
+
+#else
+        foreach (var touch in touchs)
+        {
+            if (touch.phase == TouchPhase.Began)
+            {
+                isBegin = true;
+                break;
+            }
+        }
+
+#endif
+        return isBegin;
+    }
+
+    /// <summary>
+    /// 指定されたTouchだけ調べます
+    /// </summary>
+    /// <param name="num_"></param>
+    /// <returns></returns>
+    bool IsBegin(int num_)
+    {
+
+        return (touchs[num_].phase == TouchPhase.Began);
+    }
+
+
+    /// <summary>
+    /// 現在タップされているすべてを調べます。
+    /// </summary>
+    /// <returns></returns>
+    bool isMove()
+    {
+        bool isMove = false;
+        foreach (var touch in touchs)
+        {
+            if (touch.phase == TouchPhase.Moved)
+            {
+                isMove = true;
+                break;
+            }
+        }
+        return isMove;
+    }
+
+    /// <summary>
+    /// 指定されたTouchだけ調べます
+    /// </summary>
+    /// <param name="num_"></param>
+    /// <returns></returns>
+    bool IsMove(int num_)
+    {
+        return (touchs[num_].phase == TouchPhase.Moved);
+    }
+
+    /// <summary>
+    /// 現在タップされているすべてを調べます。
+    /// </summary>
+    /// <returns></returns>
+    bool IsEnd()
+    {
+        bool isEnd = false;
+        foreach (var touch in touchs)
+        {
+            if (touch.phase == TouchPhase.Ended)
+            {
+                isEnd = true;
+                break;
+            }
+        }
+        return isEnd;
+    }
+
+    /// <summary>
+    /// 指定されたTouchだけ調べます
+    /// </summary>
+    /// <param name="num_"></param>
+    /// <returns></returns>
+    bool IsEnd(int num_)
+    {
+        return (touchs[num_].phase == TouchPhase.Ended);
+    }
+
+
     void FixedUpdate()
     {
        touchs =  Input.touches;
+       touchsNum = Input.touchCount;
     }
 
-    void Frick()
+    bool Frick(FrickDirection direction, float distance = 0.5f)
     {
+        if (touchs.Length <= 0) return false;
+        foreach (var touch in touchs)
+        {
+            switch (direction)
+            {
+                case FrickDirection.Up:
+                    return (touch.deltaPosition.y > distance);
 
+                case FrickDirection.Down:
+                    return (touch.deltaPosition.y < -distance);
+
+                case FrickDirection.Right:
+                    return (touch.deltaPosition.x > distance);
+
+                case FrickDirection.Left:
+                    return (touch.deltaPosition.x < -distance);
+                default:
+                    return false;
+            }
+        }
+        return false;
     }
 }
