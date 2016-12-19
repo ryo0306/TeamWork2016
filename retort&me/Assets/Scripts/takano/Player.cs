@@ -41,6 +41,7 @@ public class Player : MonoBehaviour
 
     public bool isGround;
 
+    public bool isDrag = true;
     
 
     [SerializeField]
@@ -126,9 +127,15 @@ public class Player : MonoBehaviour
 
             if(isGround == false)
             {
-               
-                rigidBody.velocity += new Vector3(0, drag);
-
+                if (isDrag == true)
+                {
+                    Debug.Log("aaaa");
+                    rigidBody.velocity = Vector3.zero;
+                    isDrag = false;
+                }
+                
+                Debug.Log("bbbb");
+                rigidBody.velocity += new Vector3(0,drag);
             }
             
           
@@ -182,6 +189,7 @@ public class Player : MonoBehaviour
                 if(Time.fixedTime - DebugTime > 0.1f)
                 jumped = false;
             isGround = true;
+            isDrag = true;
         }
        
     }

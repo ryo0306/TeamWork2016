@@ -549,7 +549,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22400898, guid: 24fc79df6d66c6341bb827a2bc8549e9, type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: -4.41
+      value: 1.42
       objectReference: {fileID: 0}
     - target: {fileID: 22400898, guid: 24fc79df6d66c6341bb827a2bc8549e9, type: 2}
       propertyPath: m_SizeDelta.x
@@ -593,6 +593,26 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11416204, guid: 24fc79df6d66c6341bb827a2bc8549e9, type: 2}
       propertyPath: switching
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6579350, guid: 24fc79df6d66c6341bb827a2bc8549e9, type: 2}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11451606, guid: 24fc79df6d66c6341bb827a2bc8549e9, type: 2}
+      propertyPath: drag
+      value: 0.15
+      objectReference: {fileID: 0}
+    - target: {fileID: 11451606, guid: 24fc79df6d66c6341bb827a2bc8549e9, type: 2}
+      propertyPath: isGround
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11451606, guid: 24fc79df6d66c6341bb827a2bc8549e9, type: 2}
+      propertyPath: squat
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5491310, guid: 24fc79df6d66c6341bb827a2bc8549e9, type: 2}
+      propertyPath: m_UseGravity
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -915,7 +935,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 105396, guid: e2f6ebce6c236cd4aa5bb327a7b52613, type: 2}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: e2f6ebce6c236cd4aa5bb327a7b52613, type: 2}
@@ -1616,7 +1636,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!54 &1720339698
 Rigidbody:
   m_ObjectHideFlags: 0
