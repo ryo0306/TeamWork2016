@@ -9,6 +9,9 @@ public class MapCreate : SingletonMonoBehaviour<MapCreate> {
     /// </summary>
     [SerializeField]
     GameObject []ground = null;
+
+    [SerializeField]
+    GameObject[] stageGimmick = null;
     
     MapLoad.Layer2D data = null;
 
@@ -16,15 +19,19 @@ public class MapCreate : SingletonMonoBehaviour<MapCreate> {
     public Vector2 originPos = Vector2.zero;
 
     [SerializeField]
-    private string dataPath = null;
+    public string dataPath = null;
+
+    //本体分けるべきではない
+    [SerializeField]
+    public int stageNum = 0;
 
 
-    void Start()
+    protected override void Awake() 
     {
+        base.Awake();
         //初期位置を微調整
         originPos += new Vector2(0.5f, 0.5f);
-        Load();
-        Create();
+        DontDestroyOnLoad(this.gameObject);
     }
 
     public void Load()
@@ -35,7 +42,7 @@ public class MapCreate : SingletonMonoBehaviour<MapCreate> {
         Debug.Log(data.height);
     }
 
-    void Create()
+    public void Create()
     {
        
         for (int y = 0; y < data.height; y++)
@@ -54,12 +61,28 @@ public class MapCreate : SingletonMonoBehaviour<MapCreate> {
                     
                 }
 
+                if (data.Get(x, y) == 15)
+                {
+                    GameManager.Instace.startPos = new Vector3(originPos.x + x, originPos.y + data.height - y+1, 0);
+                }
+
                 temp.transform.position = new Vector3(originPos.x + x, originPos.y + data.height - y, 0);
+
                 Instantiate(temp);
             }
         }
+        GameObject temp2 = Instantiate(stageGimmick[stageNum - 1]);
+        if (temp2 == null)
+        {
+            Debug.Log("ギミックが生成されなかったんだよな…");
+        }
+        else
+        {
+            Debug.Log(temp2.name + "が生成されました");
+        }
         Debug.Log(data.tileHeight);
         Debug.Log(data.tileWidth);
-
+        
+       
     }
 }
