@@ -208,6 +208,7 @@ MonoBehaviour:
   minRange: 0.1
   squat: 1
   isGround: 0
+  isDrag: 1
   drag: 0.18
 --- !u!114 &11453094
 MonoBehaviour:
