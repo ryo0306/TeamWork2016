@@ -355,7 +355,6 @@ GameObject:
   m_Component:
   - 4: {fileID: 598281457}
   - 212: {fileID: 598281458}
-  - 114: {fileID: 598281459}
   m_Layer: 0
   m_Name: testbackground
   m_TagString: Untagged
@@ -405,17 +404,6 @@ SpriteRenderer:
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
---- !u!114 &598281459
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 598281456}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9a980085d45c1864e8ca1b3155812937, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &611826709
 Prefab:
   m_ObjectHideFlags: 0
@@ -815,7 +803,8 @@ Prefab:
       propertyPath: m_RootOrder
       value: 3
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 11422118, guid: 299f7f7c038409c4b9957ef47e6444fa, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 299f7f7c038409c4b9957ef47e6444fa, type: 2}
   m_IsPrefabParent: 0
 --- !u!1001 &2134881029

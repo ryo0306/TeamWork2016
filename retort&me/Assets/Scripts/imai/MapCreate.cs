@@ -15,10 +15,10 @@ public class MapCreate : SingletonMonoBehaviour<MapCreate> {
     
     MapLoad.Layer2D data = null;
 
-    [SerializeField]
+    [SerializeField,Tooltip(マップの初期位置)]
     public Vector2 originPos = Vector2.zero;
 
-    [SerializeField]
+    [SerializeField,Tooltip("読み込むXML")]
     public string dataPath = null;
 
     //本体分けるべきではない
@@ -82,7 +82,5 @@ public class MapCreate : SingletonMonoBehaviour<MapCreate> {
         }
         Debug.Log(data.tileHeight);
         Debug.Log(data.tileWidth);
-        
-       
     }
 }

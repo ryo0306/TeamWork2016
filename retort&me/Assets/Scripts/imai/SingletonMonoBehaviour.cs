@@ -16,7 +16,7 @@ public class SingletonMonoBehaviour<T> : MonoBehaviour where T : MonoBehaviour {
                 instance = (T)FindObjectOfType(t);
                 if (instance == null)
                 {
-                    Debug.LogError(t + "をアタッチしているGameObjectはありません");
+                    Debug.LogWarning(t + "をアタッチしているGameObjectはありません");
                 }
             }
 
@@ -35,7 +35,7 @@ public class SingletonMonoBehaviour<T> : MonoBehaviour where T : MonoBehaviour {
         if (this != Instace)
         {
             Destroy(this);
-            Debug.LogError(typeof(T) +
+            Debug.LogWarning(typeof(T) +
                            "はすでに他のGameObjectにアタッチされているため、コンポーネントを破棄しました。" + 
                            "アタッチされているGameObjectは" + Instace.gameObject.name + "です。");
             return;
