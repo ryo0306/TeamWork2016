@@ -915,7 +915,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b5672cec82388c4996af33592b7b9a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lightSwitching: {fileID: 11427204}
+  lightSwitch2: {fileID: 0}
   checRange: {fileID: 11470288}
   check: {fileID: 0}
 --- !u!114 &11427204
