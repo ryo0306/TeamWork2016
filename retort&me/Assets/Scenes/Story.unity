@@ -223,9 +223,47 @@ MonoBehaviour:
     - name: "\u30E9\u30B9\u30C8"
       pos: {x: 0, y: 0}
       size: 540
-  pagesData: []
+  stagesData:
+  - name: "\u5854\u3078\u5411\u304B\u3046\u9053"
+    pages:
+    - name: "\u30DA\u30FC\u30B8\uFF11"
+      texture: {fileID: 2800000, guid: 87b28e4483eeb5949a437895ea3ae767, type: 3}
+      points:
+      - name: "\u305D\u306E\uFF11"
+        pos: {x: 480, y: 270}
+        size: 270
+      - name: "\u305D\u306E2"
+        pos: {x: 480, y: -270}
+        size: 270
+      - name: "\u305D\u306E3"
+        pos: {x: -480, y: 270}
+        size: 270
+      - name: "\u305D\u306E\uFF14"
+        pos: {x: -480, y: -270}
+        size: 270
+      - name: "\u5168\u4F53"
+        pos: {x: 0, y: 0}
+        size: 540
+    - name: "\u30DA\u30FC\u30B8\uFF12"
+      texture: {fileID: 2800000, guid: a2657eae01434bc4ab6a5f72953908b0, type: 3}
+      points:
+      - name: "\u305D\u306E\uFF11"
+        pos: {x: 480, y: 270}
+        size: 270
+      - name: "\u305D\u306E2"
+        pos: {x: 480, y: -270}
+        size: 270
+      - name: "\u305D\u306E3"
+        pos: {x: -480, y: 270}
+        size: 270
+      - name: "\u305D\u306E\uFF14"
+        pos: {x: -480, y: -270}
+        size: 270
+      - name: "\u5168\u4F53"
+        pos: {x: 0, y: 0}
+        size: 540
   cameraSpeed: 300
-  image: {fileID: 0}
+  image: {fileID: 1844722716}
 --- !u!4 &677831713
 Transform:
   m_ObjectHideFlags: 0

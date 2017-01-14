@@ -16,13 +16,19 @@ public class StoryManager : MonoBehaviour
 	StoryPageData pageData;
 
 	[SerializeField, Tooltip("カメラの移動のデータ(ステージごと)")]
-	StoryPageData[] pagesData;
+	StoryStageData[] stagesData;
 
 	[SerializeField, Tooltip("カメラの移動速度")]
 	float cameraSpeed;
 
 	[SerializeField]
 	RawImage image;
+
+	//ステージ番号
+	int stageNum;
+
+	//現在のページ番号
+	int pageCount;
 
 	//カメラが何番目の座標にいるor行くところか
 	int pointCount;
@@ -54,8 +60,7 @@ public class StoryManager : MonoBehaviour
 		//camera.orthographicSize = 540f;
 		//camera.transform.position = Vector3.zero;
 
-		pointCount = -1;
-
+		//初期化
 		Setup();
 
 		StartCoroutine(UpdataMain());
@@ -70,40 +75,71 @@ public class StoryManager : MonoBehaviour
 	//シーンのメインループをコルーチンで管理
 	IEnumerator UpdataMain()
 	{
+		var pages = stagesData[stageNum].pages;
 
-		while(true)
+
+		while (true)
 		{
 			yield return 0;
 
-			//左クリック　カメラの遷移
+			// 左クリックカメラの遷移
 			if (Input.GetMouseButtonDown(0))
 			{
-				if (pointCount < pageData.points.Length - 1 && IsMove == false)
+				//if (pageCount < pageData.points.Length - 1 && IsMove == false)
+				if (pageCount < pages.Length && IsMove == false)
 				{
-					StartCoroutine(MoveCameraCoruetine());
+					Debug.Log("ページ移動開始");
+					image.texture = pages[pageCount].texture;
+					yield return StartCoroutine(MovePageCoroutine(pages[pageCount]));
 				}
 
 				//次のシーンへ
-				if(pointCount >= pageData.points.Length)
+				if (pageCount >= pages.Length)
 				{
 					Shutdown();
 				}
+
+				pageCount++;
 			}
 
-			//右クリック(デバッグ:回転)
-			if (Input.GetMouseButtonDown(1))
-			{
-				StartCoroutine(RotateCamera(480f, 3));
-			}
-
-			//Sキー(デバッグ揺れる)
-			if (Input.GetKeyDown(KeyCode.S))
-			{
-				//shakeCamera.Shake();
-				StartCoroutine(ShakeCamera(15f, 3.0f));
-			}
 
 		}
+
+
+
+		//while(true)
+		//{
+		//	yield return 0;
+
+		//	//左クリック　カメラの遷移
+		//	if (Input.GetMouseButtonDown(0))
+		//	{
+		//		if (pointCount < pageData.points.Length - 1 && IsMove == false)
+		//		{
+		//			StartCoroutine(MoveCameraCoruetine());
+		//		}
+
+		//		//次のシーンへ
+		//		if(pointCount >= pageData.points.Length)
+		//		{
+		//			Shutdown();
+		//		}
+		//	}
+
+		//	//右クリック(デバッグ:回転)
+		//	if (Input.GetMouseButtonDown(1))
+		//	{
+		//		StartCoroutine(RotateCamera(480f, 3));
+		//	}
+
+		//	//Sキー(デバッグ揺れる)
+		//	if (Input.GetKeyDown(KeyCode.S))
+		//	{
+		//		//shakeCamera.Shake();
+		//		StartCoroutine(ShakeCamera(15f, 3.0f));
+		//	}
+
+		//}
 
 	}
 
@@ -113,9 +149,16 @@ public class StoryManager : MonoBehaviour
 	void Setup()
 	{
 		camera.orthographicSize = 540f;
-		camera.transform.position = Vector3.zero;
+		camera.transform.position = Vector3.back;
 
-		image.texture = pageData.texture;
+		stageNum = PublicData.Instace.stageNum;
+		Debug.Log("ステージ : " + stageNum);
+		--stageNum;
+
+		//set textrue
+		image.texture = stagesData[stageNum].pages[0].texture;
+
+		//image.texture = pageData.texture;
 		pointCount = -1;
 	}
 
@@ -124,20 +167,45 @@ public class StoryManager : MonoBehaviour
 	/// </summary>
 	void Shutdown()
 	{
+		Debug.Log("シーン移動");
+		FadeManager.Instace.LoadLevel("MainGame", 2.0f);
+	}
 
+	//
+	IEnumerator MovePageCoroutine(StoryPageData data)
+	{
+		if (pointCount < data.points.Length - 1 && IsMove == false)
+		{
+			yield return StartCoroutine(MoveCameraCoruetine(data));
+		}
+
+		while (pointCount < data.points.Length - 1)
+		{
+			yield return 0;
+			if (Input.GetMouseButtonDown(0))
+			{
+				if (pointCount < data.points.Length - 1 && IsMove == false)
+				{
+					yield return StartCoroutine(MoveCameraCoruetine(data));
+				}
+			}
+
+		}
+		Debug.Log("ページ終了" + data.name);
+		pointCount = -1;
 	}
 
 	/// <summary>
 	/// カメラを動かすコルーチン
 	/// </summary>
 	/// <returns></returns>
-	IEnumerator MoveCameraCoruetine()
+	IEnumerator MoveCameraCoruetine(StoryPageData data)
 	{
 		pointCount++;
 		IsMove = true;
 
 		//目標の座標
-		var endPos = pageData.points[pointCount].pos;
+		var endPos = data.points[pointCount].pos;
 
 		//目標座標までの距離の計算
 		var camPos2D = (Vector2)camera.transform.position;
@@ -154,7 +222,7 @@ public class StoryManager : MonoBehaviour
 		var beginSize = camera.orthographicSize;
 
 		//最終的なカメラの描画サイズ
-		var endSize = pageData.points[pointCount].size;
+		var endSize = data.points[pointCount].size;
 
 		//カメラの変動する描画サイズ
 		var diffSize = endSize - beginSize;
@@ -168,6 +236,7 @@ public class StoryManager : MonoBehaviour
 
 			//カメラを移動させる
 			camera.transform.position += (Vector3)dir * movDist;
+			//camera.transform.position
 
 			//移動させた分だけ移動した距離に加算
 			totalDist += movDist;
