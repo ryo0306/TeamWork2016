@@ -73,10 +73,9 @@ public class MapCreate : SingletonMonoBehaviour<MapCreate> {
                     GameManager.Instace.startPos = new Vector3(originPos.x + x, originPos.y + data.height - y+1, 0);
                 }
 
-                
 
                 temp.transform.position = new Vector3(originPos.x + x, originPos.y + data.height - y, 0);
-                temp.GetComponent<Renderer>().material.mainTexture = (Texture)Resources.Load("Texture/MapChip/ground" + data.Get(x, y) + "_" + PublicData.Instace.stageNum);
+                temp.GetComponent<Renderer>().material = (Material)Resources.Load("imai/Ground" + data.Get(x, y) + "_" + PublicData.Instace.stageNum);
                 Instantiate(temp);
             }
         }
