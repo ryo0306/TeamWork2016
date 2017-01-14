@@ -178,7 +178,7 @@ public class Player : MonoBehaviour
                 squat = true;
             }
         }
-
+        
     }
 
 

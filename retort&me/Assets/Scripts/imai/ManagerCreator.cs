@@ -16,7 +16,9 @@ public class ManageCreator : MonoBehaviour
 
         GameObject FadeManager = Instantiate((GameObject)Resources.Load("Prefabs/FadeManager"));
         GameObject AudioManager = Instantiate((GameObject)Resources.Load("Prefabs/AudioManager"));
+        GameObject PublicData = Instantiate((GameObject)Resources.Load("Prefabs/PublicData"));
         DontDestroyOnLoad(FadeManager);
         DontDestroyOnLoad(AudioManager);
+        DontDestroyOnLoad(PublicData);
     }
 }

@@ -22,17 +22,13 @@ public class TouchManager : SingletonMonoBehaviour<TouchManager>
         Left,
     }
 
-
     Touch[] touchs;
-
-    int touchsNum;
-
 
     void Start()
     {
         if (Input.touchSupported)
         {
-            Debug.Log("このタッチ入力に対応しています。");
+            Debug.Log("この端末はタッチ入力に対応しています。");
         }
         Input.multiTouchEnabled = false;
         Input.simulateMouseWithTouches = false;
@@ -64,6 +60,11 @@ public class TouchManager : SingletonMonoBehaviour<TouchManager>
         return new Touch();
     }
 
+    /// <summary>
+    /// 起動する機体によって変える
+    /// </summary>
+    /// <param name="num_"></param>
+    /// <returns></returns>
     Vector2 GetPos(int num_ = 0)
     {
 #if UNITY_STANDALONE
@@ -169,9 +170,14 @@ public class TouchManager : SingletonMonoBehaviour<TouchManager>
     void FixedUpdate()
     {
        touchs =  Input.touches;
-       touchsNum = Input.touchCount;
     }
 
+    /// <summary>
+    /// フリックする方向を調べます
+    /// </summary>
+    /// <param name="direction"></param>
+    /// <param name="distance"></param>
+    /// <returns></returns>
     bool Frick(FrickDirection direction, float distance = 0.5f)
     {
         if (touchs.Length <= 0) return false;

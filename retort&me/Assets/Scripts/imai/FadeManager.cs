@@ -25,8 +25,7 @@ public class FadeManager : SingletonMonoBehaviour<FadeManager>
     override protected void Awake()
     {
         base.Awake();
-
-        DontDestroyOnLoad(this.gameObject);
+        DontDestroyOnLoad(this);
     }
 
     public void OnGUI()

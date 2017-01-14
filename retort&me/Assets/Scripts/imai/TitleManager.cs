@@ -8,7 +8,19 @@ public class TitleManager : SingletonMonoBehaviour<TitleManager>
         BGMManager.Instance.Play("stageselect");
     }
 
-    public void SceneEnd()
+    public void GameaStart()
+    {
+        FadeManager.Instace.LoadLevel("MainGame", 2.0f);
+        Debug.Log("on");
+    }
+
+    public void StageSelect()
+    {
+        FadeManager.Instace.LoadLevel("StageSelect", 2.0f);
+        Debug.Log("on");
+    }
+
+    public void Option()
     {
         FadeManager.Instace.LoadLevel("StageSelect", 2.0f);
         Debug.Log("on");

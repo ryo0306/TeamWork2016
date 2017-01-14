@@ -135,7 +135,7 @@ public class MapLoad : MonoBehaviour
 
                 if (child.Name == "layer")
                 {
-                    Debug.Log("layerLoadNow");
+                    Debug.Log("layerLoading");
                     // マップ属性を取得
                     XmlAttributeCollection attrs = child.Attributes;
                     int w = int.Parse(attrs.GetNamedItem("width").Value); // 幅を取得

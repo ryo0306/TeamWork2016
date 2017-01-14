@@ -21,11 +21,6 @@ public class MapCreate : SingletonMonoBehaviour<MapCreate> {
     [SerializeField,Tooltip("読み込むXML")]
     public string dataPath = null;
 
-    //本体分けるべきではない
-    [SerializeField]
-    public int stageNum = 0;
-
-
     protected override void Awake() 
     {
         base.Awake();
@@ -34,21 +29,34 @@ public class MapCreate : SingletonMonoBehaviour<MapCreate> {
         DontDestroyOnLoad(this.gameObject);
     }
 
+    void Start()
+    {
+        
+    }
+
     public void Load()
     {
+        dataPath = "stage" + PublicData.Instace.stageNum;
         data = MapLoad.Instance.Load(dataPath);
         data.Dump();
         Debug.Log(data.width);
         Debug.Log(data.height);
     }
 
+
+
     public void Create()
     {
-       
+        //改善案：マップチップを用意あたり判定用と描写用にわける
+        //**********************************************************************************
+        //データはground1_1.○○○で用意してもらう
+        //ground(床の種類)_(ステージ番号)
+        Debug.Log(dataPath + "を生成中");
         for (int y = 0; y < data.height; y++)
         {
             for (int x = 0; x < data.width; x++)
             {
+               
                 if (data.Get(x, y) == 0) continue;
                 GameObject temp = null;
                 if (ground.Length < data.Get(x, y))
@@ -58,7 +66,6 @@ public class MapCreate : SingletonMonoBehaviour<MapCreate> {
                 else
                 {
                     temp = ground[data.Get(x, y) - 1];
-                    
                 }
 
                 if (data.Get(x, y) == 15)
@@ -66,19 +73,24 @@ public class MapCreate : SingletonMonoBehaviour<MapCreate> {
                     GameManager.Instace.startPos = new Vector3(originPos.x + x, originPos.y + data.height - y+1, 0);
                 }
 
-                temp.transform.position = new Vector3(originPos.x + x, originPos.y + data.height - y, 0);
+                
 
+                temp.transform.position = new Vector3(originPos.x + x, originPos.y + data.height - y, 0);
+                temp.GetComponent<Renderer>().material.mainTexture = (Texture)Resources.Load("Texture/MapChip/ground" + data.Get(x, y) + "_" + PublicData.Instace.stageNum);
                 Instantiate(temp);
             }
         }
-        GameObject temp2 = Instantiate(stageGimmick[stageNum - 1]);
-        if (temp2 == null)
+        //***************************************************************************:
+        //ギミックのprefabの生成
+        Debug.Log(PublicData.Instace.stageNum);
+        GameObject gimmicks = Instantiate(stageGimmick[PublicData.Instace.stageNum - 1]);
+        if (gimmicks == null)
         {
-            Debug.Log("ギミックが生成されなかったんだよな…");
+            Debug.Log("ギミックが生成されませんでした。");
         }
         else
         {
-            Debug.Log(temp2.name + "が生成されました");
+            Debug.Log(gimmicks.name + "が生成されました");
         }
         Debug.Log(data.tileHeight);
         Debug.Log(data.tileWidth);

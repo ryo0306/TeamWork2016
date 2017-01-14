@@ -11,8 +11,7 @@ public class StageSelectManager : SingletonMonoBehaviour<StageSelectManager>
 
     public void Selected(int stagenum)
     {
-        MapCreate.Instace.stageNum = stagenum;
-        MapCreate.Instace.dataPath = "stage" + stagenum;
+        PublicData.Instace.stageNum = stagenum;
         SceneEnd();
     }
 
@@ -20,6 +19,11 @@ public class StageSelectManager : SingletonMonoBehaviour<StageSelectManager>
     {
         FadeManager.Instace.LoadLevel("MainGame", 2.0f);
         Debug.Log("on");
+    }
+
+    public void Return()
+    {
+        FadeManager.Instace.LoadLevel("Title", 2.0f);
     }
 
 }

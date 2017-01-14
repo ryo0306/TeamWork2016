@@ -134,6 +134,7 @@ public class BGMManager : MonoBehaviour
         {
             this.gameObject.AddComponent<AudioListener>();
         }
+        DontDestroyOnLoad(this);
     }
 
     /// <summary>

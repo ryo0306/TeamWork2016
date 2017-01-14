@@ -40,7 +40,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_Materials:
-  - {fileID: 2100000, guid: 3c2dbe489cc6d2948a2b51a0cd33fd2b, type: 2}
+  - {fileID: 2100000, guid: 18afc684b0979ce47b5ac4363d69d498, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 1
@@ -85,7 +85,7 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 3c2dbe489cc6d2948a2b51a0cd33fd2b, type: 2}
+      objectReference: {fileID: 2100000, guid: 18afc684b0979ce47b5ac4363d69d498, type: 2}
     - target: {fileID: 0}
       propertyPath: m_TagString
       value: Ground
