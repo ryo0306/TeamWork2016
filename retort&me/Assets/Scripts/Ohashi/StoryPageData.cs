@@ -2,6 +2,15 @@
 using UnityEngine.UI;
 using System.Collections;
 
+[System.Serializable]
+public class StoryStageData
+{
+	public string name;
+
+	public StoryPageData[] pages;
+
+}
+
 //ページのデータ
 [System.Serializable]
 public class StoryPageData
