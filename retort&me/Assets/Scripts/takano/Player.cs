@@ -42,6 +42,9 @@ public class Player : MonoBehaviour
     public bool isGround;
 
     public bool isDrag = true;
+
+    [SerializeField]
+    Animator animator;
     
 
     [SerializeField]
@@ -57,7 +60,7 @@ public class Player : MonoBehaviour
         targetPos = transform.position;
         originPos = transform.position;
         defaultScale = transform.lossyScale;
-
+        isDrag = true;
 
 
     }
@@ -97,6 +100,7 @@ public class Player : MonoBehaviour
         if (targetPos.x - transform.position.x > 0) direction = new Vector3(1, 0, 0);
         else direction = new Vector3(-1, 0, 0);
 
+       
         if (Mathf.Abs(targetPos.x - transform.position.x) < dashRange)
         {
             //一時的にマジックナンバー
@@ -219,5 +223,7 @@ public class Player : MonoBehaviour
         Gravity();
         Squat();
         Hiding();
+        
+        animator.SetFloat("Speed", Mathf.Abs(rigidBody.velocity.x));
     }
 }

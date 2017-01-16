@@ -43,8 +43,6 @@ public class MapCreate : SingletonMonoBehaviour<MapCreate> {
         Debug.Log(data.height);
     }
 
-
-
     public void Create()
     {
         //改善案：マップチップを用意あたり判定用と描写用にわける
@@ -93,6 +91,5 @@ public class MapCreate : SingletonMonoBehaviour<MapCreate> {
         }
         Debug.Log(data.tileHeight);
         Debug.Log(data.tileWidth);
-
     }
 }

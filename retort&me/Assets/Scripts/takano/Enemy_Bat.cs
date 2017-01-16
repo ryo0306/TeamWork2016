@@ -139,9 +139,9 @@ public class Enemy_Bat : MonoBehaviour {
 		
 			if (bat == true) {
 				Vector3 vec = myBezier.GetPointAtTime (t);
-				transform.position = vec;
+				transform.position = new Vector3(vec.x,vec.y,transform.position.z);
 
-				t += 0.008f;
+				t += speed;
            
 			}
 

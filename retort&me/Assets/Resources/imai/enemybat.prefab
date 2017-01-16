@@ -142,11 +142,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 162562}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 78740ff1ddf29c04f900434eae987607, type: 3}
+  m_Script: {fileID: 11500000, guid: fdd68c6febfafa44693319889e746ec4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   myBezier: {fileID: 0}
   t: 0
+  HitFlag: 0
   speed: 0.008
   Starting: {x: 0, y: 0}
   End: {x: 0, y: 0}

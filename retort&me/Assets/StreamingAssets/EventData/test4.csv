@@ -1,9 +1,5 @@
 コマンド,ActivePosX,Text
 StartEvent,,
-Message,,始まるよー
-Message,,終了
-EventEnd,,
-PositionEvent,10,
-Message,,テストですよ
-Message,,終了
+Message,,うわああああ！！
+Message,,ここは…
 EventEnd,,

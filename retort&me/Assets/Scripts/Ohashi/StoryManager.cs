@@ -151,7 +151,7 @@ public class StoryManager : MonoBehaviour
 		camera.orthographicSize = 540f;
 		camera.transform.position = Vector3.back;
 
-		stageNum = PublicData.Instace.stageNum;
+		stageNum = 1;
 		Debug.Log("ステージ : " + stageNum);
 		--stageNum;
 

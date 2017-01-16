@@ -3,18 +3,6 @@ using System.Collections;
 
 public class Switch : MonoBehaviour {
 
-
-    //////////////////////////////////////////////////////////////////////////////////////
-
-
-    //噴水に付属しています
-
-
-    //////////////////////////////////////////////////////////////////////////////////////
-
-    [SerializeField,Tooltip("対象のlight")]
-    public LightSwitching[] Lightfire;
-
     [SerializeField]
     private ParticleSystem particle = null;
 
@@ -24,11 +12,10 @@ public class Switch : MonoBehaviour {
     [SerializeField]
     public bool isOn = false;
 
-    // Use this for initialization
+
     void Start ()
     {
         if (particle.isPlaying) particle.Stop();
-        StartCoroutine(kidou());
     }
     
     void fountainstarting()
@@ -40,39 +27,16 @@ public class Switch : MonoBehaviour {
     {
         while (true)
         {
-            if (isOn == true)
-            {
-                particle.Play();
                 yield return new WaitForSeconds(waitTime);
-                /*foreach (var l in Lightfire)
-                {
-                    l.isLightUp = false;
-                }*/
-            }
+                isOn = true;
             yield return null;
         }
     }
 
+    //スイッチオン
     void OnMouseDown()
     {
-        Debug.Log("aaaaaaaaaaa");
-        fountainstarting();
-        isOn = true;
+        particle.Play();
+        StartCoroutine(kidou());
     }
-    /*
-    void OnTriggerEnter(Collider coll)
-    {
-
-        if (coll.gameObject.tag == "Player")
-        {
-
-            if (Input.GetMouseButton(0))
-            {
-                //fountainstarting();
-                switchings = true;      
-            }
-        }   
-    }
-    */
-  
 }

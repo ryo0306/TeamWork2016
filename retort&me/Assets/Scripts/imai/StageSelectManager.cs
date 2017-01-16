@@ -17,7 +17,7 @@ public class StageSelectManager : SingletonMonoBehaviour<StageSelectManager>
 
     public void SceneEnd()
     {
-        FadeManager.Instace.LoadLevel("MainGame", 2.0f);
+        FadeManager.Instace.LoadLevel("Story", 2.0f);
         Debug.Log("on");
     }
 

@@ -12,7 +12,7 @@ public class GameManager : SingletonMonoBehaviour<GameManager> {
 
     void Start()
     {
-        BGMManager.Instance.Play("stageselect");
+        BGMManager.Instance.Play("Stage5");
     }
 
     public bool isDead = false;
