@@ -21,17 +21,6 @@ public class LightSwitching : MonoBehaviour {
 	}
 
 
-    void OnTriggerEnter(Collider coll)
-    {
-        if (coll.gameObject.tag == "Enemy")
-        {
-            Debug.Log("hit");
-            Destroy(coll.gameObject);
-        }
-    }
-
-
-
     void Switching()
     {
         if (isLightUp == false)

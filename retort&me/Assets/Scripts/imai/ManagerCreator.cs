@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class ManageCreator : MonoBehaviour
+public class ManagerCreator : MonoBehaviour
 {
 
     //Awakeより前に自動でマネージャーを作成する

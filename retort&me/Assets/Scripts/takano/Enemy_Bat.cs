@@ -109,6 +109,9 @@ public class Enemy_Bat : MonoBehaviour {
 
     public bool bat = false;
 
+    
+    Vector3 vec;
+
     void Start()
     {
         Starting = transform.position;

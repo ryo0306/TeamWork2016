@@ -1,6 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+//やるべき事
+//○見やすく！
+//○本を開くなどの演出がほしい
+//○シナリオに行くときに演出をいれる
+
+
+
 public class StageSelectManager : SingletonMonoBehaviour<StageSelectManager>
 {
 

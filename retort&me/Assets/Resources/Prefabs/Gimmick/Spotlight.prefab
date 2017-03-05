@@ -45,6 +45,7 @@ GameObject:
   - 108: {fileID: 10804104}
   - 54: {fileID: 5430640}
   - 65: {fileID: 6500966}
+  - 114: {fileID: 11435516}
   m_Layer: 0
   m_Name: Light
   m_TagString: Untagged
@@ -211,6 +212,17 @@ MonoBehaviour:
   switch_: {fileID: 0}
   lightOn: 0
   light_: {fileID: 10804104}
+--- !u!114 &11435516
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 179512}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d722c5baace206d469b00cf72aaed78d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

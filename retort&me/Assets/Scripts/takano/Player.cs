@@ -1,28 +1,28 @@
 ﻿using UnityEngine;
-
 using System.Collections;
 
+//やるべき事
+//○傘の設計の書き直し
+//○しゃがむなどの本実装
+//○死亡時のアニメーション
+//○傘をさしている時の行動パターンの実装
 
-
+//出来たらやる事
+//○ジャンプがしにくい問題の解消
+//移動はaddforthよりトランスフォーム？
 public class Player : MonoBehaviour
 {
-   
-    public Vector3 defaultScale = Vector3.zero;
 
+    [SerializeField,Tooltip("Player")]
     public Rigidbody rigidBody = null;
 
     public bool gravity = true;
-
-    public UmbrellaClosed umbrellaFlag;
 
     [SerializeField, Range(0.0f, 10.0f), Tooltip("移動速度")]
     public float nomalSpeed = 1;
 
     [SerializeField, Range(0.0f, 10.0f), Tooltip("ダッシュ時の速度")]
     public float dashSpeed = 2;
-
-    //タッチされた位置
-    private Vector2 targetPos;
 
     [SerializeField, Tooltip("ジャンプの初速度")]
     float jumpForce = 300;
@@ -33,25 +33,35 @@ public class Player : MonoBehaviour
     [SerializeField, Tooltip("反応しない距離")]
     private float minRange = 0.1f;
 
+    [SerializeField, Tooltip("空気抵抗(傘開いている時の落ちる速度)")]
+    float drag = 0;
+
     private Vector2 originPos = Vector2.zero;
 
+    [SerializeField]
     bool jumped = false;
 
-    public bool squat = true;
+    public bool umbrellaIsOpen = false;
 
-    public bool isGround;
-
-    public bool isDrag = true;
+    [SerializeField, Tooltip("しゃがんでいるかどうか")]
+    public bool squat = false;
 
     [SerializeField]
     Animator animator;
-    
 
-    [SerializeField]
-    public float drag;
+    [SerializeField,Tooltip("開いた瞬間にどこまで減速するか(大きいほど遅くならない)"),Range(0.0f,1.0f)]
+    float openedDragLimit = 0.3f;
+
+   
 
     //一時的なもの
     float DebugTime = 0.0f;
+    [SerializeField, Tooltip("開いた瞬間にかかる空気抵抗(除算)")]
+    float opendDrag = 3;
+
+    //タッチされた位置
+    private Vector2 targetPos;
+
 
     void Start()
     {
@@ -59,28 +69,32 @@ public class Player : MonoBehaviour
         transform.position = GameManager.Instace.startPos;
         targetPos = transform.position;
         originPos = transform.position;
-        defaultScale = transform.lossyScale;
-        isDrag = true;
-
-
     }
 
     //ジャンプ
-    void Jump()
+    public void Jump()
     {
-
-        //本来はダメ？
-        if (Input.GetKeyDown(KeyCode.Space))
+        //傘を開いてる場合はジャンプできない
+        if (umbrellaIsOpen)
         {
-            if (jumped)
-            {
-                Debug.Log("can't");
-                return;
-            }
+            Debug.Log("傘を開いているためジャンプできません。");
+            return;
+        }
+
+            if (jumped) return;
+            Debug.Log("jumped");
             rigidBody.AddForce(Vector3.up * jumpForce);
             jumped = true;
             DebugTime = Time.fixedTime;
-        }
+
+        //if (Input.GetKeyDown(KeyCode.J))
+        //{
+        //    if (jumped) return;
+        //    Debug.Log("jumped");
+        //    rigidBody.AddForce(Vector3.up * jumpForce);
+        //    jumped = true;
+        //    DebugTime = Time.fixedTime;
+        //}
     }
 
 
@@ -91,7 +105,27 @@ public class Player : MonoBehaviour
     /// </summary>
     void Move()
     {
+        Vector2 pos = transform.position;
+
+
+        // 画面左下のワールド座標をビューポートから取得
+        Vector2 min = Camera.main.ViewportToWorldPoint(new Vector2(0, 0));
+
+        // 画面右上のワールド座標をビューポートから取得
+        Vector2 max = Camera.main.ViewportToWorldPoint(new Vector2(1, 1));
+
+        // プレイヤーの位置が画面内に収まるように制限をかける
+        pos.x = Mathf.Clamp(pos.x, min.x, max.x);
+        pos.y = Mathf.Clamp(pos.y, min.y, max.y);
+
+        transform.position = pos;
+
+
+        animator.SetFloat("Speed", Mathf.Abs(rigidBody.velocity.x));
+
+        if (squat) return;
         if (!Input.GetKey(KeyCode.Mouse0)) return;
+
         targetPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
         if (minRange > Mathf.Abs(targetPos.x - transform.position.x)) return;
@@ -100,7 +134,7 @@ public class Player : MonoBehaviour
         if (targetPos.x - transform.position.x > 0) direction = new Vector3(1, 0, 0);
         else direction = new Vector3(-1, 0, 0);
 
-       
+
         if (Mathf.Abs(targetPos.x - transform.position.x) < dashRange)
         {
             //一時的にマジックナンバー
@@ -112,77 +146,41 @@ public class Player : MonoBehaviour
             if (Mathf.Abs(rigidBody.velocity.x) > dashSpeed) return;
             rigidBody.AddForce(direction * 10, ForceMode.Force);
         }
+    
+
+        //アニメーション
+        //移動量が一定量を超えたら走るモーション
+        animationUpdate();
     }
 
-  
-
-    void Gravity()
+    void MoveLimit()
     {
-      
-            if (umbrellaFlag.switching == true)
-            {
-            
-                 jumpForce = 300;
-                 dashRange = 3;
-            }
-            else
-            {         
-                jumpForce = 0;
-                dashRange = 100;
+        //画面外に出ないように
+    }
 
-            if(isGround == false)
-            {
-                if (isDrag == true)
-                {
-                    Debug.Log("aaaa");
-                    rigidBody.velocity = Vector3.zero;
-                    isDrag = false;
-                }
-                
-                Debug.Log("bbbb");
-                rigidBody.velocity += new Vector3(0,drag);
-            }
-            
-          
-            }
+
+    void umbrellaOpenMove()
+    {
+        if (umbrellaIsOpen)
+        {
+            rigidBody.velocity += new Vector3(0, drag);
         }
+    }
     
     void Hiding()
     {
-        if (Input.GetKeyDown(KeyCode.C))
-        {
-            if (umbrellaFlag.switching == false && squat == false)
-            {
-
-                Debug.Log("隠れている");
-                
-
-            }
-            else
-            {
-                Debug.Log("隠れてない");
-               
-            }
-        }
     }
 
     void Squat()
     {
-        if (Input.GetKeyDown(KeyCode.X))
+        squat = false;
+        if(Input.GetKey(KeyCode.H))
         {
-            if (squat == true)
-            {
-                Debug.Log("しゃがむ");
-                squat = false;
-            }
-
-            else
-            {
-                Debug.Log("しゃがんでない");
-                squat = true;
-            }
+            squat = true;
         }
-        
+        animator.SetBool("Squat",squat);
+        //しゃがんだかどうかの判定はanimatorのSquatをみてください；
+        animator.GetBool("Squat");
     }
 
 
@@ -190,40 +188,65 @@ public class Player : MonoBehaviour
     {
         if (coll.gameObject.tag == "Ground")
         {
-            if ((coll.transform.position.y + coll.transform.localScale.y / 2) < transform.position.y - transform.localScale.y / 2)
-                if(Time.fixedTime - DebugTime > 0.1f)
-                jumped = false;
-            isGround = true;
-            isDrag = true;
+            if(Mathf.Abs(rigidBody.velocity.y) <= Mathf.Abs(0.0f))
+                    jumped = false;
         }
-       
     }
 
-
-    void OnCollisionExit(Collision coll)
+    void animationUpdate()
     {
-        if (coll.gameObject.tag == "Ground")
+        Quaternion q = new Quaternion(0, 0, 0, 0);
+        if (rigidBody.velocity.x > 0.1)
         {
-            
-            isGround = false;
-
+            q.eulerAngles = new Vector3(0, 0, 0);
+            transform.rotation = q;
         }
-
+        else if(rigidBody.velocity.x < -0.1)
+        {
+            q.eulerAngles = new Vector3(0,180,0);
+            transform.rotation = q;
+        }
     }
-  
 
-    //ここら辺もすべてコルーチン化するべき
+    //ここら辺もすべてコルーチン化するべき?
     void FixedUpdate()
     {
         if (!GameManager.Instace.isDead)
         {
-            Jump();
+            if (Input.GetKeyDown(KeyCode.J))
+            {
+                Jump();
+            }
             Move();
         }
-        Gravity();
+        umbrellaOpenMove();
         Squat();
         Hiding();
         
-        animator.SetFloat("Speed", Mathf.Abs(rigidBody.velocity.x));
+        //MoveLimit();
+    }
+
+    /// <summary>
+    /// **傘の開閉を変える関数です。**
+    /// 傘を変える関数ではありません。
+    /// </summary>
+    public void UmbrellaChage()
+    {
+        umbrellaIsOpen = !umbrellaIsOpen;
+        animator.SetBool("IsOpen", umbrellaIsOpen);
+        StartCoroutine(OpendDrag());
+    }
+
+
+    //傘を開いた瞬間に加わる瞬間的な空気抵抗
+    private IEnumerator OpendDrag()
+    {
+        while (Mathf.Abs(rigidBody.velocity.y) > openedDragLimit)
+        {
+            Debug.Log("減速中");
+           rigidBody.velocity /= opendDrag;
+           yield return null;
+        }
+        yield return null;
     }
 }

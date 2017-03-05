@@ -1,6 +1,30 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+
+//やるべき事
+//○ポーズの実装
+//○イベントマネージャーもこっちで管理するべき
+//○セーブデータの作成
+//○ギミック全般の実装
+//○アニメーションの実装
+//○SEManagerの汎用性をあげる
+// →BGMManagerのように作る
+//○リザルト作成
+//○シーンフェイドアウト、フェイドインを多くする
+//○インターファイスの改良
+//○エネミーの生成の仕方を改めて考え直す
+//○背景も2枚にする
+//○SEを入れる
+
+//出来たら
+//演出を凝る（抽象的なので後でちゃんと決める）
+//フックを作成
+//
+
+
+
+
 public class GameManager : SingletonMonoBehaviour<GameManager> {
 
     protected override void Awake()

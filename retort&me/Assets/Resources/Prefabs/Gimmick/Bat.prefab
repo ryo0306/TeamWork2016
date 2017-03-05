@@ -181,7 +181,7 @@ MonoBehaviour:
   HitFlag: 0
   speed: 0.00514
   Starting: {x: 0, y: 0}
-  End: {x: -5, y: 1}
+  End: {x: -5, y: -5}
   Middle1: {x: 0, y: -11}
   Middle2: {x: -5, y: -11}
   bat: 0
@@ -263,7 +263,15 @@ Prefab:
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
-    m_Modifications: []
+    m_Modifications:
+    - target: {fileID: 0}
+      propertyPath: End.x
+      value: -5
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: End.y
+      value: -5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 159318}

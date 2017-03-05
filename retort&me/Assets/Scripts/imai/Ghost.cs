@@ -51,6 +51,7 @@ public class Ghost : MonoBehaviour
 
     void OnCollisionEnter(Collision coll)
     {
+        //本来ここはプレイヤーのdeady呼ぶべき
         if(coll.gameObject.tag == "Player")
         {
             GameManager.Instace.Dead();

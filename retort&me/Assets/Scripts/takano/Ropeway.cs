@@ -7,7 +7,7 @@ public class Ropeway : MonoBehaviour {
 
     public Player player;
 
-	// Use this for initialization
+
 	void Start () {
 	
 	}
