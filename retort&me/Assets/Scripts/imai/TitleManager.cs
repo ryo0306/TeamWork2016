@@ -10,7 +10,7 @@ public class TitleManager : SingletonMonoBehaviour<TitleManager>
 
     public void GameaStart()
     {
-        FadeManager.Instace.LoadLevel("MainGame", 2.0f);
+        FadeManager.Instace.LoadLevel("Story", 2.0f);
         Debug.Log("on");
     }
 

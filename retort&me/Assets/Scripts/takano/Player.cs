@@ -174,7 +174,7 @@ public class Player : MonoBehaviour
     void Squat()
     {
         squat = false;
-        if(Input.GetKey(KeyCode.H))
+        if(Input.GetKey(KeyCode.A))
         {
             squat = true;
         }
@@ -213,7 +213,7 @@ public class Player : MonoBehaviour
     {
         if (!GameManager.Instace.isDead)
         {
-            if (Input.GetKeyDown(KeyCode.J))
+            if (Input.GetKeyDown(KeyCode.S))
             {
                 Jump();
             }
@@ -222,8 +222,11 @@ public class Player : MonoBehaviour
         umbrellaOpenMove();
         Squat();
         Hiding();
-        
-        //MoveLimit();
+
+        if (Input.GetKeyDown(KeyCode.D))
+        {
+            UmbrellaChage();
+        }
     }
 
     /// <summary>
